@@ -1,0 +1,149 @@
+* {
+    font-family: 'PT Sans', sans-serif !important;
+}
+body {
+    margin: 0px;
+    padding: 0px;
+}
+nav{
+    margin-bottom: 0px !important;
+}
+.navbar-default {
+    background-color: white;
+    border: none;
+}
+.navbar-right> .active a{
+    background-color: #ebef0c !important;
+}
+.navbar-right li:hover {
+    background-color: #e2e602;
+}
+.logoimage {
+    margin-top: -40px;
+}
+#main {
+    margin: 0px;
+    padding: 0px;
+}
+.bg {
+    width: 100%;
+    height: 650px;
+    position: absolute;
+    
+}
+.bg_overlay {
+    background-color: black;
+    opacity: 0.6;
+    width: 100%;
+    height: 650px;
+    z-index: inherit;
+}
+.formlogo {
+    background-color: white; 
+    width: 130px; 
+    margin: 0 auto; 
+    padding: -20px;
+    border-radius: 20px;
+    margin-top: 35px;
+}
+.formlogo img {
+    margin: -30px 0px;
+}
+.content {
+    color: white;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+}
+select{
+    -webkit-appearance: none;
+}
+footer {
+    padding: 25px;
+    font-weight: 800px;
+}
+.heading {
+    margin-top: 50px;
+}
+.heading1 {
+    text-align: center;
+    font-size: 45px;
+}
+.para1 {
+    text-align: center;
+    font-size: 20px;
+}
+.myform {
+    /* background-color: white; */
+    padding: 20px;
+
+}
+.formcenter {
+    width: 100%;
+    margin: auto;
+}
+.form-group {
+    margin-left: 50px !important;
+    text-align: center;
+}
+.sub_btn {
+    background-color: #ebef0c;
+    border: 0px;
+}
+.col-sm-offset-2 {
+    margin-left: 0px !important;
+}
+.heading2 {
+    text-align: center;
+}
+.heading3 {
+    text-align: center;
+}
+.para2 {
+    text-align: center;
+}
+.footer_cp {
+    font-size: 18px;
+}
+footer {
+    color: black ;
+}
+.sect10 {
+    margin-bottom: 15px;
+}
+
+.last_heading {
+    margin-top: 0px;
+}
+.links a{
+    padding-right: 10px;
+    color: black;
+    text-decoration: none;
+}
+.socialIcons {
+    padding-bottom: 20px;
+}
+.socialIcons i {
+  font-size: 40px;
+}
+.socialIcons img {
+    margin: -40px 0px;
+}
+@media only screen and (max-width: 780px) {
+    .heading1 {
+        text-align: center;
+        font-size: 25px;
+    }
+    .para1 {
+        text-align: center;
+        font-size: 16px;
+    }
+    .form-group {
+        margin-left: 0px !important;
+    }
+    .heading3 {
+        text-align: center;
+        font-size: 20px;
+    }
+}
+
