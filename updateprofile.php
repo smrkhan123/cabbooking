@@ -2,30 +2,31 @@
 //  include("config.php");
 
 include("Users.php");
+if(isset($_SESSION['id'])){
+	if($_SESSION['usertype'] != '0') {
+		header("location:admin/admindashboard.php");
+		}
+	} else {
+	header("location:../index.php");
+	}
  $error = "";
  if(isset($_POST['submit'])) {
-    $username = $_POST['username'];
     $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $role = $_POST['role'];
-    $password = $_POST['password'];
-    $confirmpassword = $_POST['confirmpassword'];
-    $isblock="";
-    if($password != $confirmpassword) {
-        $error = "Password and Confirm Password did not matched!";
-    } elseif($username == '' || $name == '' || $password == '' || $phone == '' || $role == '' ){
+	$phone = $_POST['phone'];
+    if($name == '' || $phone == ''){
         $error = 'Please complete the form and then submit';
     } 
     else {
-        if($role == "0"){
-            $isblock = "0";
-        } else {
-            $isblock = "1";
-        }
-        $pass = md5($password);
+		$obj = new Users();
+		$db = new config();
+		$sql1 = $obj->select_user_id($_SESSION['id'], $db->conn);
+		$data = mysqli_fetch_assoc($sql1);
+		$username = $data['user_name'];
+		$isblock = $data['isblock'];
+		$pass = $data['password'];
+		$role = $data['isadmin'];
         $register = new Users();
-        $db = new config();
-        $sql = $register->signup($username, $name, $phone, $role, $pass, $isblock, $db->conn);
+        $sql = $register->update($_SESSION['id'], $username, $name, $phone, $role, $pass, $isblock, $db->conn);
         echo $sql;
     }
  }
@@ -82,7 +83,7 @@ include("Users.php");
 		</div>
 		<div class="col-md-6 col-lg-6 col-sm-10" id='abc'>
 			<center>
-				<a href="index.html"><img style="margin-bottom: -40px;" src="logo.png" alt="" width="100" height="100"/></a>
+				<a href="index.php"><img style="margin-bottom: -40px;" src="logo.png" alt="" width="100" height="100"/></a>
 			</center>
             <h2 style="text-align: center;">Update Your Profile Here</h2>
             <div class="text-right">
@@ -96,34 +97,20 @@ include("Users.php");
                 }
             ?>
 			<form action="" method="POST">
+				<?php
+				$obj = new Users();
+				$db = new config();
+				$sql = $obj->select_user_id($_SESSION['id'], $db->conn);
+				$data = mysqli_fetch_assoc($sql);
+				?>
 				<div class="form-group">
 					<label for='name'>Name:</label>
-					<input type="text" class='form-control' name="name">
-				</div>
-				<div class="form-group ">
-					<label for='username'>Username:</label>
-					<input type="text" class='form-control' name="username">
+					<input type="text" class='form-control' name="name" value="<?php echo $data['name']; ?>">
 				</div>
 				<div class="form-group ">
 					<label for='phone'>Phone:</label>
-					<input type="text" class='form-control' name="phone">
+					<input type="text" class='form-control' name="phone" value="<?php echo $data['mobile']; ?>">
                 </div>
-                <div class="form-group ">
-					<label for='role'>Role:</label>
-					<select class="form-control" name="role" id="role">
-                        <option value="">Select role</option>
-                        <option value="1">Admin</option>
-                        <option value="0">User</option>
-                    </select>
-				</div>
-				<div class="form-group">
-					<label for='password'>Password:</label>
-					<input type="password" class='form-control' name="password">
-				</div>
-				<div class="form-group">
-					<label for='confirmpassword'>Confirm Password:</label>
-					<input type="password" class='form-control' name="confirmpassword">
-				</div>
 				<div class="form-group " style="padding: 10px 0px;">
 					<input type="submit" class="btn btn-success form-control"  name="submit" value="Update" style="padding: 5px 30px;">
 				</div>

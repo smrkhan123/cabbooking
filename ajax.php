@@ -1,6 +1,13 @@
 <?php
-
-$arr = array("charbagh"=>0, "indiranagar"=>10,"bbd"=>30, "barabanki"=>60, "faizabad"=>100, "basti"=>150, "gorakhpur"=>210);
+include('Locations.php');
+$obj = new Locations();
+$db = new config();
+$sql = $obj->select_loc($db->conn);
+$arr = array();
+while($dt=mysqli_fetch_assoc($sql)){
+    $arr = $arr + array($dt['name']=>$dt['distance']);
+}
+// $arr = array("charbagh"=>0, "indiranagar"=>10,"bbd"=>30, "barabanki"=>60, "faizabad"=>100, "basti"=>150, "gorakhpur"=>210);
 
 $pick = $_POST['pickup'];
 $drop = $_POST['drop'];
@@ -78,5 +85,6 @@ if($cab=='cedmicro') {
     }
     $fare = $fare + (2*$l_price);
 }
-echo $fare;
+$arr = array($fare, $final_distance);
+echo json_encode($arr);
 ?>

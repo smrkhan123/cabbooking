@@ -30,9 +30,12 @@ function farecalc() {
             url: "ajax.php",
             method: "POST",
             data: { pickup: pckup, drop: drp, cab: cb, luggage: lug },
+            dataType: "json"
         }).done(function (msg) {
-            $("#calculatedFare").html("<strong>Calculated Fare: "+ msg +"</strong>");
-            $("#buttonfare").val(msg);
+            $("#calculatedFare").html("<strong>Calculated Fare: "+ msg[0] +"</strong>");
+            $("#buttonfare").val(msg[0]);
+            $("#distanceinput").val(msg[1]);
+            $(".subButton").css("display", "block");
         });
     }
 }
@@ -43,3 +46,8 @@ $("#luggage").keyup(function(){
         $("#luggage").val("");
     }
 });
+
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+  $("#wrap").toggleClass("toggled");
+  });

@@ -2,31 +2,35 @@
 //  include("config.php");
 
 include("Users.php");
+if(isset($_SESSION['id'])){
+	if($_SESSION['usertype'] != '0') {
+		header("location:admin/admindashboard.php");
+		}
+	} else {
+	header("location:../index.php");
+	}
  $error = "";
  if(isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $role = $_POST['role'];
-    $password = $_POST['password'];
-    $confirmpassword = $_POST['confirmpassword'];
-    $isblock="";
-    if($password != $confirmpassword) {
+	$password = $_POST['password'];
+	$confirm_password = $_POST['confirmpassword'];
+	if($password != $confirm_password){
         $error = "Password and Confirm Password did not matched!";
-    } elseif($username == '' || $name == '' || $password == '' || $phone == '' || $role == '' ){
-        $error = 'Please complete the form and then submit';
-    } 
-    else {
-        if($role == "0"){
-            $isblock = "0";
-        } else {
-            $isblock = "1";
+        header("location: changepassword.php");
+	} else {
+		$obj = new Users();
+		$db = new config();
+		$sql1 = $obj->select_user_id($_SESSION['id'], $db->conn);
+		foreach($sql1 as $data){
+            $username = $data['user_name'];
+            $name = $data['name'];
+            $phone = $data['mobile'];
+            $isblock = $data['isblock'];
+            $pass = md5($password);
+            $role = $data['isadmin'];
         }
-        $pass = md5($password);
         $register = new Users();
-        $db = new config();
-        $sql = $register->signup($username, $name, $phone, $role, $pass, $isblock, $db->conn);
-        echo $sql;
+        $sql = $register->update_password($_SESSION['id'], $username, $name, $phone, $isblock, $pass, $role, $db->conn);
+        header("location: login.php");
     }
  }
 ?>
@@ -82,9 +86,12 @@ include("Users.php");
 		</div>
 		<div class="col-md-6 col-lg-6 col-sm-10" id='abc'>
 			<center>
-				<a href="index.html"><img style="margin-bottom: -40px;" src="logo.png" alt="" width="100" height="100"/></a>
+				<a href="index.php"><img style="margin-bottom: -40px;" src="logo.png" alt="" width="100" height="100"/></a>
 			</center>
-            <h2 style="text-align: center;">Register Here</h2>
+            <h2 style="text-align: center;">Update Password Here</h2>
+            <div class="text-right">
+                <a href="index.php" class="btn btn-info">Back</a>
+            </div>
             <?php
                 if($error) {
                     ?>
@@ -94,26 +101,6 @@ include("Users.php");
             ?>
 			<form action="" method="POST">
 				<div class="form-group">
-					<label for='name'>Name:</label>
-					<input type="text" class='form-control' name="name">
-				</div>
-				<div class="form-group ">
-					<label for='username'>Username:</label>
-					<input type="text" class='form-control' name="username">
-				</div>
-				<div class="form-group ">
-					<label for='phone'>Phone:</label>
-					<input type="text" class='form-control' name="phone">
-                </div>
-                <div class="form-group ">
-					<label for='role'>Role:</label>
-					<select class="form-control" name="role" id="role">
-                        <option value="">Select role</option>
-                        <option value="1">Admin</option>
-                        <option value="0">User</option>
-                    </select>
-				</div>
-				<div class="form-group">
 					<label for='password'>Password:</label>
 					<input type="password" class='form-control' name="password">
 				</div>
@@ -122,9 +109,9 @@ include("Users.php");
 					<input type="password" class='form-control' name="confirmpassword">
 				</div>
 				<div class="form-group " style="padding: 10px 0px;">
-					<input type="submit" class="btn btn-success form-control"  name="submit" value="Register" style="padding: 5px 30px;">
+					<input type="submit" class="btn btn-success form-control"  name="submit" value="Update" style="padding: 5px 30px;">
 				</div>
-				<p class="pfooter">Already have account? <a href="login.php"> Click Here</a></p>
+				<!-- <p class="pfooter">Already have account? <a href="login.php"> Click Here</a></p> -->
 			</form>
 	</div>
 </div>

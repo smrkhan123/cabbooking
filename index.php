@@ -1,6 +1,12 @@
 <?php
 session_start();
 include("Locations.php");
+include("Rides.php");
+if(isset($_SESSION['id'])){
+  if($_SESSION['usertype'] != '0') {
+      header("location:admin/admindashboard.php");
+  }
+}
 // $loc = new Locations();
 // $db = new config();
 // $sql = $loc->select_loc($db->conn);
@@ -10,11 +16,15 @@ if(isset($_POST['submit'])){
   } else {
     $from = $_POST['pickup'];
     $to = $_POST['drop'];
-    $luggage = $_POST['luggage'];
+    $luggage = isset($_POST['luggage'])?$_POST['luggage']:"";
     $fare = $_POST['fare'];
-    $loc = new Locations();
+    $distance = $_POST['distance'];
+    $user_id = $_SESSION['id'];
+    $status = '1';
+    $obj = new Rides();
     $db = new config();
-    $sql = $loc->select_loc_difference($from, $to, $db->conn);
+    $sql = $obj->insert($from, $to, $luggage, $fare, $distance, $user_id, $status, $db->conn);
+    
   }
 }
 ?>
@@ -51,10 +61,9 @@ if(isset($_POST['submit'])){
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="#main">Book Cab</a></li>
-              <li><a href="#">Contact Us</a></li>
               <?php 
                 if(isset($_SESSION['id'])) { 
-                  echo "<li><a href='#'>Previous Rides</a></li><li><a href='updateprofile.php'>Update Profile</a></li><li><a href='logout.php'>Logout</a></li>";
+                  echo "<li><a href='previousrides.php'>Previous Rides</a></li><li><a href='updateprofile.php'>Update Profile</a></li><li><a href='changepassword.php'>Change Password</a></li><li><a>Hey, &nbsp".$_SESSION['username']."</a></li><li><a href='logout.php'>Logout</a></li>";
                 } else {
                   echo "<li><a href='login.php'>Login</a></li><li><a href='signup.php'>Sign Up</a></li>";
                 }
@@ -80,7 +89,7 @@ if(isset($_POST['submit'])){
               </div>
               <h3 class="heading3"><strong>Your Everyday travel Partner</strong></h3>
               <p class="para2">AC Cabs for time to time travel</p>
-              <form class="form-horizontal myform" action="bookride.php" method="POST">
+              <form class="form-horizontal myform" action="" method="POST">
                 <div class="form-group ">
                   <div class="col-sm-10">
                     <select name="pickup" id="pickup" class="form-control" onchange="loc()">
@@ -88,7 +97,7 @@ if(isset($_POST['submit'])){
                       <?php
                         $loc = new Locations();
                         $db = new config();
-                        $sql = $loc->select_loc($db->conn);
+                        $sql = $loc->select($db->conn);
                         while($data = mysqli_fetch_assoc($sql)){
                           ?>
                             <option value="<?php echo $data['name']; ?>"><?php echo ucfirst($data['name']); ?></option>
@@ -104,7 +113,7 @@ if(isset($_POST['submit'])){
                       <option value="">Select Your Drop Location</option>
                       <?php
                         $loc = new Locations();
-                        $sql = $loc->select_loc($db->conn);
+                        $sql = $loc->select($db->conn);
                         while($data = mysqli_fetch_assoc($sql)){
                           ?>
                             <option value="<?php echo $data['name']; ?>"><?php echo ucfirst($data['name']); ?></option>
@@ -131,11 +140,12 @@ if(isset($_POST['submit'])){
                   </div>
                 </div>
                 <input type="hidden" name="fare" id="buttonfare">
+                <input type="hidden" name="distance" id="distanceinput">
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
                     <button type="button" id="calculatedFare" class="btn btn-default form-control sub_btn" onclick="farecalc()">Calculate Fare</button>
                   </div>
-                  <div class="col-sm-offset-2 col-sm-10" style="margin-top:10px;">
+                  <div class="col-sm-offset-2 col-sm-10 subButton" style="margin-top:10px;">
                     <button type="submit" id="calculatedFare" name="submit" class="btn btn-default form-control sub_btn" onclick="farecalc()">Book Now</button>
                   </div>
                 </div>
