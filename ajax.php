@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 include('Locations.php');
 $obj = new Locations();
 $db = new config();
@@ -25,6 +27,8 @@ foreach($arr as $key => $value) {
 }
 $final_distance = abs($pickup_distance-$drop_distance);
 
+
+$_SESSION['distance']=$final_distance;
 //calculating luggage price
 
 $l_price;
@@ -85,6 +89,7 @@ if($cab=='cedmicro') {
     }
     $fare = $fare + (2*$l_price);
 }
+$_SESSION['fare']=$fare;
 $arr = array($fare, $final_distance);
 echo json_encode($arr);
 ?>

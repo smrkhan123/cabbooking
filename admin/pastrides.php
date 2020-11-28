@@ -96,7 +96,7 @@ if(isset($_GET['sort'])){
             <h2>Completed Rides</h2>
             <p>Here you can see all the rides of users</p> 
         </div>
-          <div class="container text-center" style="width:90%;">
+          <div class="container text-center" style="width:95%;">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -114,13 +114,14 @@ if(isset($_GET['sort'])){
                           <a href="pastrides.php?sort=DESC&val=total_distance"><p class="caret caret-dropup"></p></a>
                         </th>
                         <th class="text-center">Luggage</th>
+                        <th class="text-center">Cab Type</th>
                         <th class="text-center">
                           Total Fare
                           <a href="pastrides.php?sort=ASC&val=total_fare"><p class="caret"></p></a>
                           <a href="pastrides.php?sort=DESC&val=total_fare"><p class="caret caret-dropup"></p></a>
                         </th>
                         <th class="text-center">Customer ID</th>
-                        <th class="text-center" colspan="2">Action</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -141,11 +142,11 @@ if(isset($_GET['sort'])){
                                     <td><?php echo ucfirst($data['from']); ?></td>
                                     <td><?php echo ucfirst($data['to']); ?></td>
                                     <td><?php echo ucfirst($data['total_distance']); ?></td>
-                                    <td><?php echo ucfirst($data['luggage']); ?></td>
+                                    <td><?php if($data['luggage'] == "") { echo '0'; } else { echo $data['luggage'];} ?></td>
+                                    <td><?php echo ucfirst($data['cabtype']); ?></td>
                                     <td><?php echo ucfirst($data['total_fare']); ?></td>
                                     <td><?php echo ucfirst($data['customer_user_id']); ?></td>
-                                    <td><a href="pastrides.php?ride=1&id=<?php echo $data['ride_id']; ?>" class="btn btn-danger btn-xs">Remove</a></td>
-                                    <td><a href="invoice.php?id=<?php echo $data['ride_id']; ?>" class="btn btn-success btn-xs">Print Invoice</a></td>
+                                    <td><a href="pastrides.php?ride=1&id=<?php echo $data['ride_id']; ?>" class="btn btn-danger btn-xs">Remove</a>&nbsp;<a href="invoice.php?id=<?php echo $data['ride_id']; ?>" class="btn btn-success btn-xs">Print Invoice</a></td>
                                 </tr>
                             <?php
                     }

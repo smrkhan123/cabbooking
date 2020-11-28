@@ -107,7 +107,7 @@ if(isset($_GET['sort'])){
         <p>Here you can Manage Requested Rides</p> 
     </div>
       <div class="container text-center">
-        <table class="container table table-striped" style="width:80%;">
+        <table class="container table table-striped" style="width:85%;">
             <thead>
                 <tr>
                     <th class="text-center">S.no</th>
@@ -124,6 +124,7 @@ if(isset($_GET['sort'])){
                       <a href="requestedrides.php?sort=DESC&val=total_distance"><p class="caret caret-dropup"></p></a>
                     </th>
                     <th class="text-center">Luggage</th>
+                    <th class="text-center">Cab Type</th>
                     <th class="text-center">
                       Total Fare
                       <a href="requestedrides.php?sort=ASC&val=total_fare"><p class="caret"></p></a>
@@ -152,7 +153,8 @@ if(isset($_GET['sort'])){
                                 <td><?php echo ucfirst($data['from']); ?></td>
                                 <td><?php echo ucfirst($data['to']); ?></td>
                                 <td><?php echo ucfirst($data['total_distance']); ?></td>
-                                <td><?php echo ucfirst($data['luggage']); ?></td>
+                                <td><?php if($data['luggage'] == "") { echo '0'; } else { echo $data['luggage'];} ?></td>
+                                <td><?php echo ucfirst($data['cabtype']); ?></td>
                                 <td><?php echo ucfirst($data['total_fare']); ?></td>
                                 <td><?php echo ucfirst($data['customer_user_id']); ?></td>
                                 <td>

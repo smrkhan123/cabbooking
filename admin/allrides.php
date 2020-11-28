@@ -96,7 +96,7 @@ if(isset($_GET['sort'])){
             <h2>All Rides</h2>
             <p>Here you can see all the rides of users</p> 
         </div>
-          <div class="container text-center" style="width:80%;">
+          <div class="container text-center" style="width:90%;">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -114,6 +114,7 @@ if(isset($_GET['sort'])){
                           <a href="allrides.php?sort=DESC&val=total_distance"><p class="caret caret-dropup"></p></a>
                         </th>
                         <th class="text-center">Luggage</th>
+                        <th class="text-center">Cab Type</th>
                         <th class="text-center">
                           Total Fare
                           <a href="allrides.php?sort=ASC&val=total_fare"><p class="caret"></p></a>
@@ -141,7 +142,8 @@ if(isset($_GET['sort'])){
                                     <td><?php echo ucfirst($data['from']); ?></td>
                                     <td><?php echo ucfirst($data['to']); ?></td>
                                     <td><?php echo ucfirst($data['total_distance']); ?></td>
-                                    <td><?php echo ucfirst($data['luggage']); ?></td>
+                                    <td><?php if($data['luggage'] == "") { echo '0'; } else { echo $data['luggage'];} ?></td>
+                                    <td><?php echo ucfirst($data['cabtype']); ?></td>
                                     <td><?php echo ucfirst($data['total_fare']); ?></td>
                                     <td><?php echo ucfirst($data['customer_user_id']); ?></td>
                                     <td>

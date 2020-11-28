@@ -11,20 +11,20 @@ if(isset($_SESSION['id'])){
 // $db = new config();
 // $sql = $loc->select_loc($db->conn);
 if(isset($_POST['submit'])){
-  if(!isset($_SESSION['id'])) {
-    header("location: login.php");
-  } else {
     $from = $_POST['pickup'];
     $to = $_POST['drop'];
     $luggage = isset($_POST['luggage'])?$_POST['luggage']:"";
     $fare = $_POST['fare'];
+    $cabtype = $_POST['cab_type'];
     $distance = $_POST['distance'];
+  if(!isset($_SESSION['id'])) {
+    header("location: login.php?submit=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance&cabtype=$cabtype");
+  } else {
     $user_id = $_SESSION['id'];
     $status = '1';
     $obj = new Rides();
     $db = new config();
-    $sql = $obj->insert($from, $to, $luggage, $fare, $distance, $user_id, $status, $db->conn);
-    
+    $sql = $obj->insert($from, $to, $luggage, $fare, $distance, $cabtype, $user_id, $status, $db->conn);
   }
 }
 ?>

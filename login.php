@@ -8,9 +8,17 @@ if (isset($_SESSION['id'])) {
         $username = $_POST['username'];
         $pass = $_POST['password'];
 		$password = md5($pass);
+		$type = array();
+		if(isset($_POST['from'])){
+			$type[0] = $_POST['from'];
+			$type[1] = $_POST['to'];
+			$type[2] = $_POST['luggage'];
+			$type[3] = $_POST['distance'];
+			$type[4] = $_POST['fare'];
+		}
 		$user = new Users();
 		$db = new config();
-		$sql = $user->login($username, $password, $db->conn);
+		$sql = $user->login($username, $password, $type, $db->conn);
     }
 }
 
@@ -68,6 +76,17 @@ if (isset($_SESSION['id'])) {
                 }
 			?>
 			<form action="login.php" method="POST">
+				<?php 
+					if(isset($_GET['submit'])) {
+						?>
+						<input type="hidden" name="from" value="<?php echo $_GET['from']; ?>">	
+						<input type="hidden" name="to" value="<?php echo $_GET['to']; ?>">
+						<input type="hidden" name="luggage" value="<?php echo $_GET['luggage']; ?>">
+						<input type="hidden" name="distance" value="<?php echo $_GET['distance']; ?>">
+						<input type="hidden" name="fare" value="<?php echo $_GET['fare']; ?>">
+						<?php
+					}
+				?>
 				<div class="form-group" style="padding: 5px 0px;">
 					<label for='username'>Username:</label>
 					<input type="text" class='form-control' name="username">

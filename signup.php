@@ -1,6 +1,12 @@
 <?php
 //  include("config.php");
-
+if(isset($_SESSION['id'])){
+    if($_SESSION['usertype'] != '0') {
+        header("location:admin/admindashboard.php");
+    }
+} else {
+    header("location:index.php");
+}
 include("Users.php");
  $error = "";
  if(isset($_POST['submit'])) {

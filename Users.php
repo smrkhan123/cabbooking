@@ -23,7 +23,7 @@ class Users {
         }
     }
 
-    function login($username, $password, $conn){
+    function login($username, $password, $type, $conn){
         $qry = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = '$password'";
         $run = mysqli_query($conn, $qry);
         $row = mysqli_num_rows($run);
@@ -43,7 +43,17 @@ class Users {
 				if($usertype == "1"){
 					header("location:admin/admindashboard.php");
 				} else {
-					header("location:index.php");
+					if(count($type)>0) {
+                        $from = $type[0];
+                        $to = $type[1];
+                        $luggage = $type[2];
+                        $distance = $type[3];
+                        $fare = $type[4];
+                        header("location:confirmbooking.php?booking=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance");
+            
+                    } else {
+                        header("location:index.php");
+                    } 
 				}
             }
         }

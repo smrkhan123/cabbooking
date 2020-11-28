@@ -111,6 +111,7 @@ $comp = $obj1->select_invoice($id, $db->conn);
                                 <h3><?php echo $data['from']; ?></h3>
                                 <h3><?php echo $data['to']; ?></h3>
                                 <h3><?php echo $data['total_distance']; ?></h3>
+                                <h3><?php echo ucfirst($data['cabtype']); ?></h3>
                                 <h3><?php echo $data['luggage']; ?></h3>
                             <?php
                         } ?>

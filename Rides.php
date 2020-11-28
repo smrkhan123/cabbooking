@@ -17,6 +17,7 @@ class Rides {
         } else {
             return '0';
         }
+    
     }
     function select_ride($data, $conn) {
         $sql = "SELECT * FROM ride WHERE status = '".$data."'";
@@ -27,6 +28,7 @@ class Rides {
             return '0';
         }
     }
+
     function select_confirmed_ride($conn) {
         $sql = "SELECT * FROM ride WHERE `is_delete` = 0 AND `status` = 2";
         $run = mysqli_query($conn, $sql);
@@ -36,6 +38,7 @@ class Rides {
             return 0;
         }
     }
+
     function select_previous_rides($id, $conn) {
         $sql = "SELECT * FROM ride WHERE `customer_user_id` = '".$id."'";
         $run = mysqli_query($conn, $sql);
@@ -46,13 +49,15 @@ class Rides {
         }
     }
     
-    function insert($from, $to, $luggage, $fare, $distance, $user_id, $status, $conn){
-        $sql = "INSERT INTO ride(`ride_date`, `from`, `to`, `total_distance`, `luggage`, `total_fare`, `status`, `customer_user_id`, `is_delete`) VALUES (NOW(), '".$from."', '".$to."', '".$distance."', '".$luggage."', '".$fare."', '".$status."', '".$user_id."',0)";
+    function insert($from, $to, $luggage, $fare, $distance, $cabtype, $user_id, $status, $conn) {
+        $sql = "INSERT INTO ride(`ride_date`, `from`, `to`, `total_distance`, `cabtype`, `luggage`, `total_fare`, `status`, `customer_user_id`, `is_delete`) VALUES (NOW(), '".$from."', '".$to."', '".$distance."', '".$cabtype."', '".$luggage."', '".$fare."', '".$status."', '".$user_id."',0)";
+        // echo $sql;
+        // die();
         $run = mysqli_query($conn, $sql);
         if(!$run){
             echo "Some error occured! ".mysqli_error($conn);
         } else {
-            echo "<script>alert('Your ride is booked! We make sure to get in touch with you shortly.')</script>";
+            echo "<script>alert('Your ride is booked! We make sure to get in touch with you shortly.'); window.location.href = 'previousrides.php';</script>";
         }
     }
 
@@ -63,6 +68,7 @@ class Rides {
             echo "Some error occured!".mysqli_error($conn);
         }
     }
+
     function update($id, $data, $conn) {
         $status = "";
         if($data == "cancel") {
@@ -87,6 +93,7 @@ class Rides {
             return $runqry;
         }
     }
+
     function sort_allrides($sort, $order, $conn) {
         $sql = "SELECT * FROM `ride` ORDER BY cast(`$sort` AS unsigned) $order";
         // return $sql;
@@ -97,6 +104,7 @@ class Rides {
             return $runqry;
         }
     }
+
     function sort_statuswise($status, $sort, $order, $conn) {
         $sql = "SELECT * FROM `ride` WHERE `status` = $status ORDER BY cast(`$sort` AS unsigned) $order";
         // return $sql;
@@ -107,6 +115,7 @@ class Rides {
             return $runqry;
         }
     }
+
     function sort_past($sort, $order, $conn) {
         $sql = "SELECT * FROM `ride` WHERE (`is_delete` = 0 AND `status` = 2) ORDER BY cast(`$sort` AS unsigned) $order";
         // return $sql;
@@ -127,6 +136,7 @@ class Rides {
             return $runqry;
         }
     }
+
     function filter_weekwise($id, $week, $conn) {
         $wk = (substr($week,-2)-1);
         $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' AND WEEK(`ride_date`) = '".$wk."'";
@@ -148,5 +158,4 @@ class Rides {
         }
     }
 }
-
 ?>
