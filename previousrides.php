@@ -107,10 +107,18 @@ if(isset($_POST['fetch_week'])){
                     </th>
                     <th class="text-center">From</th>
                     <th class="text-center">To</th>
-                    <th class="text-center">Total Distance<a href="previousrides.php?sort=ASC&val=total_distance"><p class="caret"></p></a><a href="previousrides.php?sort=DESC&val=total_distance"><p class="caret caret-dropup"></p></a></th>
+                    <th class="text-center">
+                      Total Distance
+                      <a href="previousrides.php?sort=ASC&val=total_distance"><p class="caret"></p></a>
+                      <a href="previousrides.php?sort=DESC&val=total_distance"><p class="caret caret-dropup"></p></a>
+                    </th>
                     <th class="text-center">Luggage</th>
                     <th class="text-center">Cab Type</th>
-                    <th class="text-center">Total Fare<a href="previousrides.php?sort=ASC&val=total_fare"><p class="caret"></p></a><a href="previousrides.php?sort=DESC&val=total_fare"><p class="caret caret-dropup"></p></a></th>
+                    <th class="text-center">
+                      Total Fare
+                      <a href="previousrides.php?sort=ASC&val=total_fare"><p class="caret"></p></a>
+                      <a href="previousrides.php?sort=DESC&val=total_fare"><p class="caret caret-dropup"></p></a>
+                    </th>
                     <th class="text-center">Status</th>
                 </tr>
             </thead>

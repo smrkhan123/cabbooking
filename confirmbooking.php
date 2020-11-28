@@ -15,6 +15,7 @@ if(isset($_GET['booking'])) {
     $to = $_GET['to'];
     $luggage = $_GET['luggage'];
     $fare = $_GET['fare'];
+    $cabtype = $_GET['cabtype'];
     $distance = $_GET['distance'];
 } elseif(isset($_GET['booked'])) {
     $from = $_GET['from'];
@@ -24,12 +25,14 @@ if(isset($_GET['booking'])) {
       $luggage = '0';
     }
     $fare = $_GET['fare'];
+    $fare = $_GET['fare'];
     $distance = $_GET['distance'];
+    $cabtype = $_GET['cabtype'];
     $user_id = $_SESSION['id'];
     $status = '1';
     $obj = new Rides();
     $db = new config();
-    $sql = $obj->insert($from, $to, $luggage, $fare, $distance, "cedmicro", $user_id, $status, $db->conn);
+    $sql = $obj->insert($from, $to, $luggage, $fare, $distance, $cabtype, $user_id, $status, $db->conn);
 } else {
     header("location:index.php");
 }
@@ -106,6 +109,7 @@ if(isset($_GET['booking'])) {
                         $to = $_GET['drop'];
                         $luggage = $_GET['luggage'];
                         $fare = $_GET['fare'];
+                        $cabtype = $_GET['cabtype'];
                         $distance = $_GET['distance'];
                         
                     }
@@ -120,7 +124,7 @@ if(isset($_GET['booking'])) {
                       <th><h4>Luggage</h4></th><td><h4><?php if($luggage == "") { echo "0"; } else { echo $luggage; } ?></h4></td>
                     </tr>
                     <tr>
-                      <th><h4>CabType</h4></th><td><h4>Cedmicro</td>
+                      <th><h4>CabType</h4></th><td><h4><?php echo ucfirst($cabtype); ?></td>
                     </tr>
                     <tr>
                       <th><h4>Distance</h4></th><td><h4><?php echo ucfirst($distance); ?></h4></td>
@@ -130,7 +134,7 @@ if(isset($_GET['booking'])) {
                     </tr>
                     <tr>
                       <th><h4>Action</h4></th><td>
-                        <?php echo "<a href='confirmbooking.php?booked=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance' class='btn btn-success'>Confirm Booking</a>&nbsp;&nbsp;<a href='index.php' class='btn btn-danger'>Cancel Booking</a>" ; ?>
+                        <?php echo "<a href='confirmbooking.php?booked=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance&cabtype=$cabtype' class='btn btn-success'>Confirm Booking</a>&nbsp;&nbsp;<a href='index.php' class='btn btn-danger'>Cancel Booking</a>" ; ?>
                       </td>
                     </tr>
             </tbody>

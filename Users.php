@@ -24,7 +24,8 @@ class Users {
     }
 
     function login($username, $password, $type, $remember, $conn){
-        $qry = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = '$password'";
+        $enc_password = md5($password);
+        $qry = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = '$enc_password'";
         $run = mysqli_query($conn, $qry);
         $row = mysqli_num_rows($run);
         if ($row<1) {
@@ -59,7 +60,8 @@ class Users {
                         $luggage = $type[2];
                         $distance = $type[3];
                         $fare = $type[4];
-                        header("location:confirmbooking.php?booking=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance");
+                        $cabtype = $type[5];
+                        header("location:confirmbooking.php?booking=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance&cabtype=$cabtype");
             
                     } else {
                         header("location:index.php");

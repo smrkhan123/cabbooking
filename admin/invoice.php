@@ -118,7 +118,7 @@ $comp = $obj1->select_invoice($id, $db->conn);
                         </div>
                     </div>
                     <div class="panel-footer text-center">
-                        <h2>Total Fare:  8534</h2>
+                        <h2>Total Fare:  <?php echo $data['total_fare']; ?></h2>
                     </div>
                 </div>
             </div>

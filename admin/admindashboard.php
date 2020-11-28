@@ -49,8 +49,15 @@ $pendingusers = 0;
 foreach($blockedusers as $blocked) {
   ++$pendingusers;
 }
+$obj2 = new Users();
+$blockedusers = $obj2->select_pending_users('1', $db->conn);
+$approvedusers = 0;
+foreach($blockedusers as $blocked) {
+  ++$approvedusers;
+}
+$chart_rides = array($completedrides,$cancelledrides,$pendingrides);
+$chart_users = array($approvedusers,$pendingusers);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -152,9 +159,39 @@ foreach($blockedusers as $blocked) {
             </div>
           </div>
         </div>
+        <div id="piechart"></div>
+        <div id="piechart1"></div>
       </div>
     </div>
   </div>
   <script src="../action.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+var ridesData = <?php echo json_encode($chart_rides); ?>;
+var usersData = <?php echo json_encode($chart_users); ?>;
+console.log(ridesData);
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Rides', 'All rides till date'],
+  ['Completed', ridesData[0]],
+  ['Cancelled', ridesData[1]],
+  ['Pending', ridesData[2]],
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Total Rides', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
 </body>
 </html>
