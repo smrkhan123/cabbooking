@@ -23,17 +23,27 @@ class Users {
         }
     }
 
-    function login($username, $password, $type, $conn){
+    function login($username, $password, $type, $remember, $conn){
         $qry = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = '$password'";
         $run = mysqli_query($conn, $qry);
         $row = mysqli_num_rows($run);
         if ($row<1) {
             $error = 'Please enter a valid Username or Password';
         } else {
+            
 			$data = mysqli_fetch_assoc($run);
             if($data['isblock']== "0" ){
                 echo "<script>alert('You are successfully registered! Please wait for admin approvel.');</script>";
             } else {
+                if($remember != "") {
+                    setcookie("member", $username, time()+10*365*24*60*60);
+                    setcookie("password", $password, time()+10*365*24*60*60);
+                } else {
+                    if(isset($_COOKIE['member'])){
+                        setcookie("member", "");
+                        setcookie("password","");
+                    }
+                }
                 $id = $data['user_id'];
                 $usertype = $data['isadmin'];
                 $uname = $data['user_name'];

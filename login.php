@@ -6,8 +6,13 @@ if (isset($_SESSION['id'])) {
 } else {
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
-        $pass = $_POST['password'];
-		$password = md5($pass);
+		$pass = $_POST['password'];
+		if(!(isset($_COOKIE['member']))){
+			$pass = md5($pass);
+		}
+		$remember = isset($_POST['rememberme'])?$_POST['rememberme']:"";
+		// echo $remember;
+		// die();
 		$type = array();
 		if(isset($_POST['from'])){
 			$type[0] = $_POST['from'];
@@ -18,7 +23,7 @@ if (isset($_SESSION['id'])) {
 		}
 		$user = new Users();
 		$db = new config();
-		$sql = $user->login($username, $password, $type, $db->conn);
+		$sql = $user->login($username, $pass, $type, $remember, $db->conn);
     }
 }
 
@@ -89,11 +94,14 @@ if (isset($_SESSION['id'])) {
 				?>
 				<div class="form-group" style="padding: 5px 0px;">
 					<label for='username'>Username:</label>
-					<input type="text" class='form-control' name="username">
+					<input type="text" class='form-control' name="username" value="<?php if(isset($_COOKIE['member'])) { echo $_COOKIE['member']; }?>">
 				</div>
 				<div class="form-group" style="padding: 5px 0px;">
 					<label for='password'>Password:</label>
-					<input type="password" class='form-control' name="password">
+					<input type="password" class='form-control' name="password" value="<?php if(isset($_COOKIE['password'])) {echo $_COOKIE['password'];}?>">
+				</div>
+				<div class="form-group" style="padding: 5px 0px;">
+					<input type="checkbox" name="rememberme" <?php if(isset($_COOKIE['member'])) {?> checked <?php ; }?>>&nbsp;<label for='password'>Remember me</label>
 				</div>
 				<div class="form-group" style="padding: 10px 0px;">
 					<input type="submit" class="btn btn-success form-control"  name="login" value="Login" style="padding: 5px 30px;">

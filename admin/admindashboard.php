@@ -111,14 +111,14 @@ foreach($blockedusers as $blocked) {
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-4 col-lg-4">
-            <div class="panel panel-warning">
+            <div class="panel" style="background-color:dodgerblue !important;">
               <div class="panel-heading text-center">
                 <h3>Pending Rides</h3>
                 <h1><?php echo $pendingrides; ?></h1>
               </div>
               <div class="panel-footer text-center"><a href="requestedrides.php">Click</a> to see more..</div>
             </div>
-            <div class="panel panel-info">
+            <div class="panel" style="background-color:orange !important;">
               <div class="panel-heading text-center">
                 <h3>Pending User Requests</h3>
                 <h1><?php echo $pendingusers; ?></h1>
@@ -127,14 +127,14 @@ foreach($blockedusers as $blocked) {
             </div>
           </div>
           <div class="col-md-4 col-lg-4">
-            <div class="panel panel-danger">
+            <div class="panel" style="background-color:red !important;">
               <div class="panel-heading  text-center">
                 <h3>Cancelled Rides</h3>
                 <h1><?php echo $cancelledrides; ?></h1>
               </div>
               <div class="panel-footer text-center"><a href="cancelledrides.php">Click</a> to see more..</div>
             </div>
-            <div class="panel panel-success">
+            <div class="panel" style="background-color:green !important;">
               <div class="panel-heading text-center">
                 <h3>Total Earning</h3>
                 <h1><?php echo $total; ?></h1>
