@@ -16,7 +16,7 @@ if(isset($_GET['sort'])){
     $id = $_SESSION['id'];
     $obj = new Rides();
     $db = new config();
-    $final = $obj->sort_col($id, $sort, $order, '2', $db->conn);
+    $final = $obj->sort_col($id, $sort, $order, '0', $db->conn);
 }
 if(isset($_POST['fetch'])){
   $date1 = $_POST['date1'];
@@ -24,7 +24,7 @@ if(isset($_POST['fetch'])){
   $id = $_SESSION['id'];
   $obj = new Rides();
   $db = new config();
-  $datewise = $obj->filter_datewise($id, $date1, $date2, '2', $db->conn);
+  $datewise = $obj->filter_datewise($id, $date1, $date2, '0', $db->conn);
   
 }
 if(isset($_POST['fetch_week'])){
@@ -32,10 +32,11 @@ if(isset($_POST['fetch_week'])){
   $id = $_SESSION['id'];
   $obj = new Rides();
   $db = new config();
-  $datewise = $obj->filter_weekwise($id, $week, '2', $db->conn);
+  $datewise = $obj->filter_weekwise($id, $week, '0', $db->conn);
   // echo $datewise;
   // die();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -83,9 +84,9 @@ if(isset($_POST['fetch_week'])){
               <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li class="active"><a href="previousrides.php">Completed Rides</a></li>
+                <li><a href="previousrides.php">Completed Rides</a></li>
                 <li><a href="pendingrides.php">Pending Rides</a></li>
-                <li><a href="cancelledrides.php">Cancelled Rides</a></li>
+                <li class="active"><a href="cancelledrides.php">Cancelled Rides</a></li>
               </ul>
             </li>
             <li><a href='updateprofile.php'>Update Profile</a></li>
@@ -100,7 +101,7 @@ if(isset($_POST['fetch_week'])){
     <!-- Main Section/ Landing Page -->
     <section id="main">
     <div class="text-center">
-        <h2>All Completed Rides</h2>
+        <h2>All Cancelled Rides</h2>
         <p>Here previous rides include Completed as well as Cancelled rides</p>
     </div>
       <div class="container text-center">
@@ -110,22 +111,22 @@ if(isset($_POST['fetch_week'])){
                     <th class="text-center">S.no</th>
                     <th class="text-center">
                       Date
-                      <a href="previousrides.php?sort=ASC&val=ride_date"><p class="caret"></p></a>
-                      <a href="previousrides.php?sort=DESC&val=ride_date"><p class="caret caret-dropup"></p></a>
+                      <a href="cancelledrides.php?sort=ASC&val=ride_date"><p class="caret"></p></a>
+                      <a href="cancelledrides.php?sort=DESC&val=ride_date"><p class="caret caret-dropup"></p></a>
                     </th>
                     <th class="text-center">From</th>
                     <th class="text-center">To</th>
                     <th class="text-center">
                       Total Distance
-                      <a href="previousrides.php?sort=ASC&val=total_distance"><p class="caret"></p></a>
-                      <a href="previousrides.php?sort=DESC&val=total_distance"><p class="caret caret-dropup"></p></a>
+                      <a href="cancelledrides.php?sort=ASC&val=total_distance"><p class="caret"></p></a>
+                      <a href="cancelledrides.php?sort=DESC&val=total_distance"><p class="caret caret-dropup"></p></a>
                     </th>
                     <th class="text-center">Luggage</th>
                     <th class="text-center">Cab Type</th>
                     <th class="text-center">
                       Total Fare
-                      <a href="previousrides.php?sort=ASC&val=total_fare"><p class="caret"></p></a>
-                      <a href="previousrides.php?sort=DESC&val=total_fare"><p class="caret caret-dropup"></p></a>
+                      <a href="cancelledrides.php?sort=ASC&val=total_fare"><p class="caret"></p></a>
+                      <a href="cancelledrides.php?sort=DESC&val=total_fare"><p class="caret caret-dropup"></p></a>
                     </th>
                     <th class="text-center">Status</th>
                 </tr>
@@ -140,7 +141,7 @@ if(isset($_POST['fetch_week'])){
                   $rides = new Rides();
                   $db = new config();
                   $id = $_SESSION['id'];
-                  $sql = $rides->select_previous_rides($id, '2',  $db->conn);
+                  $sql = $rides->select_previous_rides($id, '0',  $db->conn);
                 }
                 if($sql == '0'){
                     ?>
@@ -178,13 +179,13 @@ if(isset($_POST['fetch_week'])){
         </table>
       </div>
       <div class="container">
-        <form action="previousrides.php" method="post">
+        <form action="cancelledrides.php" method="post">
           Datewise Filter: 
           <input type="date" name="date1" required>
           <input type="date" name="date2" required>
           <input type="submit" value="fetch" name="fetch">
         </form>
-        <form action="previousrides.php" method="post">
+        <form action="cancelledrides.php" method="post">
           WeekWise Filter: 
           <input type="week" name="week" required>
           <input type="submit" value="fetch" name="fetch_week">

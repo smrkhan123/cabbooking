@@ -83,7 +83,7 @@ if(isset($_GET['booking'])) {
             </ul>
             <ul class="nav navbar-nav navbar-right">
             <li><a href="index.php">Book Cab</a></li>
-            <li class="active"><a href='previousrides.php'>Previous Rides</a></li>
+            <li class="active"><a href='previousrides.php'>Rides</a></li>
             <li><a href='updateprofile.php'>Update Profile</a></li>
             <li><a href='changepassword.php'>Change Password</a></li>
             <li><a><?php echo "Hey, &nbsp".$_SESSION['username']; ?></a></li>

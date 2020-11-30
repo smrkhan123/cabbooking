@@ -31,10 +31,22 @@ class Locations {
         }
     }  
     function insert($name, $distance, $conn) {
-        $sql = "INSERT INTO location (`name`, `distance`, `is_available`) VALUES ('".$name."','".$distance."',1)";
-        $run = mysqli_query($conn, $sql);
-        if($run>0){
-            return $run;
+        $flag = 0;
+        $loc = "SELECT * FROM location";
+        $check = mysqli_query($conn, $loc);
+        while($data = mysqli_fetch_assoc($check)){
+            if($data['name'] == $name) {
+                $flag = 1;
+            }
+        }
+        if($flag == 0) {
+            $sql = "INSERT INTO location (`name`, `distance`, `is_available`) VALUES ('".$name."','".$distance."',1)";
+            $run = mysqli_query($conn, $sql);
+            if($run){
+                return $run;
+            }
+        } else {
+            echo "<script>alert('Data already exists');</script>";
         }
     }
     function select_loc_id($id, $conn){

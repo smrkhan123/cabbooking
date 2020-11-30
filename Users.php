@@ -101,6 +101,8 @@ class Users {
         $rows = mysqli_num_rows($run);
         if($rows>0) {
             return $run;
+        } else {
+            return '0';
         }
     }
     

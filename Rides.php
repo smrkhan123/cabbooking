@@ -57,7 +57,7 @@ class Rides {
         if(!$run){
             echo "Some error occured! ".mysqli_error($conn);
         } else {
-            echo "<script>alert('Your ride is booked! We make sure to get in touch with you shortly.'); window.location.href = 'previousrides.php';</script>";
+            echo "<script>alert('Your ride is booked! We make sure to get in touch with you shortly.'); window.location.href = 'pendingrides.php';</script>";
         }
     }
 
@@ -83,8 +83,8 @@ class Rides {
         }
     }
 
-    function sort_col($id, $sort, $order, $conn) {
-        $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' ORDER BY cast(`$sort` AS unsigned) $order";
+    function sort_col($id, $sort, $order, $status, $conn) {
+        $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' AND `status` = $status AND  `status` = $status ORDER BY cast(`$sort` AS unsigned) $order";
         // return $sql;
         $runqry = mysqli_query($conn, $sql);
         if(!$runqry){
@@ -127,8 +127,8 @@ class Rides {
         }
     }
 
-    function filter_datewise($id, $date1, $date2, $conn) {
-        $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' AND DATE(`ride_date`) BETWEEN '".$date1."' AND '".$date2."'";
+    function filter_datewise($id, $date1, $date2, $status, $conn) {
+        $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' AND `status` = $status AND DATE(`ride_date`) BETWEEN '".$date1."' AND '".$date2."'";
         $runqry = mysqli_query($conn, $sql);
         if(!$runqry){
             echo "Some error occured!".mysqli_error($conn);
@@ -137,9 +137,9 @@ class Rides {
         }
     }
 
-    function filter_weekwise($id, $week, $conn) {
+    function filter_weekwise($id, $week, $status, $conn) {
         $wk = (substr($week,-2)-1);
-        $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' AND WEEK(`ride_date`) = '".$wk."'";
+        $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' AND `status` = $status AND WEEK(`ride_date`) = '".$wk."'";
         $runqry = mysqli_query($conn, $sql);
         if(!$runqry){
             echo "Some error occured!".mysqli_error($conn);

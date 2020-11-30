@@ -13,21 +13,6 @@ $obj1 = new Rides();
 $db = new config();
 $id = $_GET['id'];
 $comp = $obj1->select_invoice($id, $db->conn);
-// foreach($comp as $data) {
-//     echo $data['ride_date'];
-// }
-// if($comp == '0') {
-//   $completedrides = 0;
-// } else {
-//   $completedrides = 0;
-//   foreach($comp as $completed) {
-//     ++$completedrides;
-//   }
-//   $total = 0;
-//   foreach($comp as $price) {
-//     $total = $total + $price['total_fare'];
-//   }
-// }
 ?>
 
 <!DOCTYPE html>
@@ -97,6 +82,7 @@ $comp = $obj1->select_invoice($id, $db->conn);
                         <div class="col-md-6 col-lg-6">
                             <h3>Date:</h3>
                             <h3>Ride Id:</h3>
+                            <h3>Name</h3>
                             <h3>From:</h3>
                             <h3>To:</h3>
                             <h3>Total Distance: </h3>
@@ -108,6 +94,20 @@ $comp = $obj1->select_invoice($id, $db->conn);
                             ?>
                                 <h3><?php echo $data['ride_date']; ?></h3>
                                 <h3><?php echo $data['ride_id']; ?></h3>
+                                <h3>
+                                  <?php
+                                    $selectUser = new Users();
+                                    $users = $selectUser->select_user_id($data['customer_user_id'], $db->conn);
+                                    if($users == '0') {
+                                      echo "Unknown User";
+                                    } else {
+                                        foreach($users as $user) {
+                                          $username = $user['name'];
+                                        }
+                                        echo ucfirst($username);
+                                    }
+                                  ?>
+                                </h3>
                                 <h3><?php echo $data['from']; ?></h3>
                                 <h3><?php echo $data['to']; ?></h3>
                                 <h3><?php echo $data['total_distance']; ?></h3>

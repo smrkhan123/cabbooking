@@ -64,7 +64,15 @@ if(isset($_POST['submit'])){
               <?php 
                 if(isset($_SESSION['id'])) { 
                   ?>
-                  <li><a href='previousrides.php'>Rides</a></li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="previousrides.php">Completed Rides</a></li>
+                      <li><a href="pendingrides.php">Pending Rides</a></li>
+                      <li><a href="cancelledrides.php">Cancelled Rides</a></li>
+                    </ul>
+                  </li>
                   <li><a href='updateprofile.php'>Update Profile</a></li>
                   <li><a href='changepassword.php'>Change Password</a></li>
                   <li><a>Hey, &nbsp;<?php echo $_SESSION['username']; ?></a></li>

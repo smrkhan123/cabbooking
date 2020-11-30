@@ -11,8 +11,8 @@ if(isset($_SESSION['id'])){
 if(isset($_POST['submit'])){
     $name = $_POST['name'];
     $distance = $_POST['distance'];
-    $obj = new Locations();
     $db = new config();
+    $obj = new Locations();
     $sql = $obj->insert($name, $distance, $db->conn);
     header("location: alllocations.php");
 }
@@ -90,11 +90,11 @@ if(isset($_POST['submit'])){
             <form class="form" action="" method="POST">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="distance">Distance From Charbagh</label>
-                    <input type="number" class="form-control" name="distance">
+                    <input type="number" class="form-control" name="distance" required>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="form-control btn btn-success" name="submit" value="Submit">
