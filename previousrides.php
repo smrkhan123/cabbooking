@@ -172,13 +172,13 @@ if(isset($_POST['fetch_week'])){
       <div class="container">
         <form action="" method="post">
           Datewise Filter: 
-          <input type="date" name="date1" >
-          <input type="date" name="date2" >
+          <input type="date" name="date1" required>
+          <input type="date" name="date2" required>
           <input type="submit" value="fetch" name="fetch">
         </form>
         <form action="" method="post">
           WeekWise Filter: 
-          <input type="week" name="week" >
+          <input type="week" name="week" required>
           <input type="submit" value="fetch" name="fetch_week">
         </form>
       </div>

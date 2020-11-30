@@ -106,6 +106,7 @@ class Users {
             $data = mysqli_fetch_assoc($run);
             if($data['isblock']=="0"){
                 $isblck = "1";
+
             } else {
                 $isblck = "0";
             }
@@ -169,3 +170,4 @@ class Users {
 }
 
 ?>
+

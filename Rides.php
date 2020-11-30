@@ -157,5 +157,12 @@ class Rides {
             return 0;
         }
     }
+    function fetchRidedates($conn) {
+        $sql = "SELECT sum(total_fare) AS total, ride_date, count(ride_date) FROM `ride` WHERE `status` = 2 GROUP BY DATE(`ride_date`)";
+        $run = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($run)){
+            return $run;
+        }
+    }
 }
 ?>

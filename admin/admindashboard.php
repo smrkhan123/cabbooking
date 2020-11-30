@@ -57,6 +57,16 @@ foreach($blockedusers as $blocked) {
 }
 $chart_rides = array($completedrides,$cancelledrides,$pendingrides);
 $chart_users = array($approvedusers,$pendingusers);
+
+$ride_dates = new Rides();
+$db = new config();
+$ridedate = $ride_dates->fetchRidedates($db->conn);
+$rideData = [];
+$rideEarning = [];
+foreach($ridedate as $eachride) {
+  $rideData[] = substr($eachride['ride_date'],0,10);
+  $rideEarning[] = $eachride['total'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -159,39 +169,111 @@ $chart_users = array($approvedusers,$pendingusers);
             </div>
           </div>
         </div>
-        <div id="piechart"></div>
-        <div id="piechart1"></div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6">
+            <div id="piechart"></div>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <div id="piechartusers"></div>
+          </div>
+        </div>
+        <canvas id="myChart"></canvas>
       </div>
     </div>
   </div>
   <script src="../action.js"></script>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript">
+    var rides = <?php echo json_encode($chart_rides); ?>;
+    var users = <?php echo json_encode($chart_users); ?>;
+    var ride_dates = <?php echo json_encode($rideData); ?>;
+    var ride_earning = <?php echo json_encode($rideEarning); ?>;
 
-<script type="text/javascript">
-var ridesData = <?php echo json_encode($chart_rides); ?>;
-var usersData = <?php echo json_encode($chart_users); ?>;
-console.log(ridesData);
-// Load google charts
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+    //for displaying all rides data
+    // Load google charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
 
-// Draw the chart and set the chart values
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-  ['Rides', 'All rides till date'],
-  ['Completed', ridesData[0]],
-  ['Cancelled', ridesData[1]],
-  ['Pending', ridesData[2]],
-]);
+    // Draw the chart and set the chart values
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+      ['Rides', 'All rides till date'],
+      ['Completed', rides[0]],
+      ['Cancelled', rides[1]],
+      ['Pending', rides[2]],
+    ]);
 
-  // Optional; add a title and set the width and height of the chart
-  var options = {'title':'Total Rides', 'width':550, 'height':400};
+      // Optional; add a title and set the width and height of the chart
+      var options = {'title':'Total Rides', 'width':550, 'height':400};
 
-  // Display the chart inside the <div> element with id="piechart"
-  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-  chart.draw(data, options);
-}
-</script>
+      // Display the chart inside the <div> element with id="piechart"
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+    }
+
+    //for displaying all users data
+    // Load google charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(dChart);
+
+    // Draw the chart and set the chart values
+    function dChart() {
+      var data = google.visualization.arrayToDataTable([
+      ['Users', 'All Blocked/Unblocked Users'],
+      ['Active', users[0]],
+      ['Blocked', users[1]],
+    ]);
+
+      // Optional; add a title and set the width and height of the chart
+      var options = {'title':'Total Users', 'width':550, 'height':400};
+
+      // Display the chart inside the <div> element with id="piechart"
+      var chart = new google.visualization.PieChart(document.getElementById('piechartusers'));
+      chart.draw(data, options);
+    }
+
+
+    //for displaying line chart
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ride_dates,
+            datasets: [{
+                label: 'Earning On Given Date',
+                data: ride_earning,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+  </script>
 </body>
 </html>
