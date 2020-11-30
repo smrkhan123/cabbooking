@@ -39,8 +39,8 @@ class Rides {
         }
     }
 
-    function select_previous_rides($id, $conn) {
-        $sql = "SELECT * FROM ride WHERE `customer_user_id` = '".$id."'";
+    function select_previous_rides($id, $status, $conn) {
+        $sql = "SELECT * FROM ride WHERE `customer_user_id` = '".$id."' AND `status` = '".$status."'";
         $run = mysqli_query($conn, $sql);
         if(mysqli_num_rows($run)>0){
             return $run;

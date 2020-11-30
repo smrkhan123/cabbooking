@@ -54,7 +54,7 @@ if(isset($_POST['submit'])){
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="logo.png" width="100" alt="CedCab" class="logoimage"></a>
+            <a class="navbar-brand" href="index.php"><img src="logo.png" width="100" alt="CedCab" class="logoimage"></a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -63,8 +63,13 @@ if(isset($_POST['submit'])){
               <li class="active"><a href="#main">Book Cab</a></li>
               <?php 
                 if(isset($_SESSION['id'])) { 
-                  echo "<li><a href='previousrides.php'>Previous Rides</a></li><li><a href='updateprofile.php'>Update Profile</a></li><li><a href='changepassword.php'>Change Password</a></li><li><a>Hey, &nbsp".$_SESSION['username']."</a></li><li><a href='logout.php'>Logout</a></li>";
-                } else {
+                  ?>
+                  <li><a href='previousrides.php'>Rides</a></li>
+                  <li><a href='updateprofile.php'>Update Profile</a></li>
+                  <li><a href='changepassword.php'>Change Password</a></li>
+                  <li><a>Hey, &nbsp;<?php echo $_SESSION['username']; ?></a></li>
+                  <li><a href='logout.php'>Logout</a></li>
+                <?php } else {
                   echo "<li><a href='login.php'>Login</a></li><li><a href='signup.php'>Sign Up</a></li>";
                 }
               ?>

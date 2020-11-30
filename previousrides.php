@@ -36,6 +36,13 @@ if(isset($_POST['fetch_week'])){
   // echo $datewise;
   // die();
 }
+if(isset($_GET['status'])){
+  $status = $_GET['status'];
+  $id = $_SESSION['id'];
+  $obj = new Rides();
+  $db = new config();
+  $datewise = $obj->select_previous_rides($id, $status, $db->conn);
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,14 +79,14 @@ if(isset($_POST['fetch_week'])){
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img src="logo.png" width="100" alt="CedCab" class="logoimage"></a>
+            <a class="navbar-brand" href="index.php"><img src="logo.png" width="100" alt="CedCab" class="logoimage"></a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
             <li><a href="index.php">Book Cab</a></li>
-            <li class="active"><a href='previousrides.php'>Previous Rides</a></li>
+            <li class="active"><a href='previousrides.php'>Rides</a></li>
             <li><a href='updateprofile.php'>Update Profile</a></li>
             <li><a href='changepassword.php'>Change Password</a></li>
             <li><a><?php echo "Hey, &nbsp".$_SESSION['username']; ?></a></li>
@@ -93,7 +100,10 @@ if(isset($_POST['fetch_week'])){
     <section id="main">
     <div class="text-center">
         <h2>All Previous Rides</h2>
-        <p>Here previous rides include Completed as well as Cancelled rides</p> 
+        <p>Here previous rides include Completed as well as Cancelled rides</p>
+        <a href="previousrides.php?status=2" class="btn btn-xs btn-success">Completed Rides</a>
+        <a href="previousrides.php?status=1" class="btn btn-xs btn-info">Pending Rides</a> 
+        <a href="previousrides.php?status=0" class="btn btn-xs btn-danger">Cancelled Rides</a>  
     </div>
       <div class="container text-center">
         <table class="table table-striped">
@@ -132,7 +142,7 @@ if(isset($_POST['fetch_week'])){
                   $rides = new Rides();
                   $db = new config();
                   $id = $_SESSION['id'];
-                  $sql = $rides->select_previous_rides($id,  $db->conn);
+                  $sql = $rides->select_previous_rides($id, '1',  $db->conn);
                 }
                 if($sql == '0'){
                     ?>
@@ -170,13 +180,13 @@ if(isset($_POST['fetch_week'])){
         </table>
       </div>
       <div class="container">
-        <form action="" method="post">
+        <form action="previousrides.php" method="post">
           Datewise Filter: 
           <input type="date" name="date1" required>
           <input type="date" name="date2" required>
           <input type="submit" value="fetch" name="fetch">
         </form>
-        <form action="" method="post">
+        <form action="previousrides.php" method="post">
           WeekWise Filter: 
           <input type="week" name="week" required>
           <input type="submit" value="fetch" name="fetch_week">

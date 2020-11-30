@@ -18,8 +18,6 @@ class Users {
             } else {
                 echo "<script>alert('You are successfully registered! Please wait for admin appeovel.');</script>";
             }
-        } else {
-            die("Some errror Occured". mysqli_error($conn));
         }
     }
 
@@ -38,7 +36,6 @@ class Users {
             } else {
                 if($remember != "") {
                     setcookie("member", $username, time()+10*365*24*60*60);
-                    setcookie("password", $password, time()+10*365*24*60*60);
                 } else {
                     if(isset($_COOKIE['member'])){
                         setcookie("member", "");
@@ -68,6 +65,15 @@ class Users {
                     } 
 				}
             }
+        }
+    }
+
+    function select($conn) {
+        $sql = "SELECT * FROM `users`";
+        $run = mysqli_query($conn, $sql);
+        $rows = mysqli_num_rows($run);
+        if($rows>0) {
+            return $run;
         }
     }
 

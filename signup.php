@@ -4,34 +4,36 @@ if(isset($_SESSION['id'])){
     if($_SESSION['usertype'] != '0') {
         header("location:admin/admindashboard.php");
     }
-} else {
-    header("location:index.php");
-}
+} 
+
 include("Users.php");
  $error = "";
+ $check = new Users();
+ $db = new config();
+ $checksql = $check->select($db->conn);
  if(isset($_POST['submit'])) {
     $username = $_POST['username'];
     $name = $_POST['name'];
     $phone = $_POST['phone'];
-    $role = $_POST['role'];
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirmpassword'];
-    $isblock="";
+	$isblock="";
+	
+	foreach($checksql as $chk) {
+		if($chk['user_name'] == $username) {
+			$error = "Username Already exists";
+		}
+	}
     if($password != $confirmpassword) {
         $error = "Password and Confirm Password did not matched!";
-    } elseif($username == '' || $name == '' || $password == '' || $phone == '' || $role == '' ){
+    } elseif($username == '' || $name == '' || $password == '' || $phone == ''){
         $error = 'Please complete the form and then submit';
-    } 
+    }
     else {
-        if($role == "0"){
-            $isblock = "0";
-        } else {
-            $isblock = "1";
-        }
         $pass = md5($password);
         $register = new Users();
         $db = new config();
-        $sql = $register->signup($username, $name, $phone, $role, $pass, $isblock, $db->conn);
+        $sql = $register->signup($username, $name, $phone, 'user', $pass, $isblock, $db->conn);
         echo $sql;
     }
  }
@@ -109,16 +111,8 @@ include("Users.php");
 				</div>
 				<div class="form-group ">
 					<label for='phone'>Phone:</label>
-					<input type="text" class='form-control' name="phone">
+					<input type="text" class='form-control' name="phone" pattern="[1-9]{1}[0-9]{9}">
                 </div>
-                <div class="form-group ">
-					<label for='role'>Role:</label>
-					<select class="form-control" name="role" id="role">
-                        <option value="">Select role</option>
-                        <option value="1">Admin</option>
-                        <option value="0">User</option>
-                    </select>
-				</div>
 				<div class="form-group">
 					<label for='password'>Password:</label>
 					<input type="password" class='form-control' name="password">

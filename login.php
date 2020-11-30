@@ -95,7 +95,7 @@ if (isset($_SESSION['id'])) {
 				</div>
 				<div class="form-group" style="padding: 5px 0px;">
 					<label for='password'>Password:</label>
-					<input type="password" class='form-control' name="password" value="<?php if(isset($_COOKIE['password'])) { echo $_COOKIE['password']; }?>">
+					<input type="password" class='form-control' name="password">
 				</div>
 				<div class="form-group" style="padding: 5px 0px;">
 					<input type="checkbox" name="rememberme" <?php if(isset($_COOKIE['member'])) {?> checked <?php ; }?>>&nbsp;<label for='password'>Remember me</label>
