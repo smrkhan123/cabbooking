@@ -21,15 +21,12 @@ class Users {
         }
     }
 
-    function login($username, $password, $type, $remember, $conn){
+    function login($username, $password, $remember, $conn){
         $enc_password = md5($password);
         $qry = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = '$enc_password'";
         $run = mysqli_query($conn, $qry);
         $row = mysqli_num_rows($run);
-        if ($row<1) {
-            $error = 'Please enter a valid Username or Password';
-        } else {
-            
+        if ($row>0) {
 			$data = mysqli_fetch_assoc($run);
             if($data['isblock']== "0" ){
                 echo "<script>alert('You are successfully registered! Please wait for admin approvel.');</script>";
@@ -51,20 +48,11 @@ class Users {
 				if($usertype == "1"){
 					header("location:admin/admindashboard.php");
 				} else {
-					if(count($type)>0) {
-                        $from = $type[0];
-                        $to = $type[1];
-                        $luggage = $type[2];
-                        $distance = $type[3];
-                        $fare = $type[4];
-                        $cabtype = $type[5];
-                        header("location:confirmbooking.php?booking=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance&cabtype=$cabtype");
-            
-                    } else {
-                        header("location:index.php");
-                    } 
-				}
+                    header("location:index.php");
+                } 
             }
+        } else {
+            echo "<script>alert('Please enter a valid username or password.');</script>";
         }
     }
 

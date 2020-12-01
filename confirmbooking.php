@@ -6,36 +6,31 @@ if(isset($_SESSION['id'])){
   if($_SESSION['usertype'] != '0') {
       header("location:admin/admindashboard.php");
   }
+} else {
+  header("location:index.php");
 }
 // $loc = new Locations();
 // $db = new config();
 // $sql = $loc->select_loc($db->conn);
-if(isset($_GET['booking'])) {
-    $from = $_GET['from'];
-    $to = $_GET['to'];
-    $luggage = $_GET['luggage'];
-    $fare = $_GET['fare'];
-    $cabtype = $_GET['cabtype'];
-    $distance = $_GET['distance'];
-} elseif(isset($_GET['booked'])) {
-    $from = $_GET['from'];
-    $to = $_GET['to'];
-    $luggage = $_GET['luggage'];
-    if($luggage == ""){
-      $luggage = '0';
-    }
-    $fare = $_GET['fare'];
-    $fare = $_GET['fare'];
-    $distance = $_GET['distance'];
-    $cabtype = $_GET['cabtype'];
+    $from = $_SESSION['booking']['from'];
+    $to = $_SESSION['booking']['to'];
+    $luggage = $_SESSION['booking']['luggage'];
+    $fare = $_SESSION['booking']['fare'];
+    $distance = $_SESSION['booking']['total_distance'];
+    $cabtype = $_SESSION['booking']['cabtype'];
     $user_id = $_SESSION['id'];
     $status = '1';
-    $obj = new Rides();
-    $db = new config();
-    $sql = $obj->insert($from, $to, $luggage, $fare, $distance, $cabtype, $user_id, $status, $db->conn);
-} else {
-    header("location:index.php");
-}
+    if(isset($_GET['action'])){
+      $obj = new Rides();
+      $db = new config();
+      $sql = $obj->insert($from, $to, $luggage, $fare, $distance, $cabtype, $user_id, $status, $db->conn);
+      unset($_SESSION['booking']);
+    } 
+
+    if(isset($_GET['cancel'])) {
+      unset($_SESSION['booking']);
+      header("location:index.php");
+    }
     
 ?>
 
@@ -102,18 +97,6 @@ if(isset($_GET['booking'])) {
       <div class="container text-center">
         <table class="table table-striped">
             <tbody>
-                <tr>
-                <?php
-                    if(isset($_GET['book'])) {
-                        $from = $_GET['pickup'];
-                        $to = $_GET['drop'];
-                        $luggage = $_GET['luggage'];
-                        $fare = $_GET['fare'];
-                        $cabtype = $_GET['cabtype'];
-                        $distance = $_GET['distance'];
-                        
-                    }
-                ?>
                     <tr> 
                       <th><h4>From</h4></th><td><h4><?php echo ucfirst($from); ?></h4></td>
                     </tr>
@@ -134,7 +117,7 @@ if(isset($_GET['booking'])) {
                     </tr>
                     <tr>
                       <th><h4>Action</h4></th><td>
-                        <?php echo "<a href='confirmbooking.php?booked=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance&cabtype=$cabtype' class='btn btn-success'>Confirm Booking</a>&nbsp;&nbsp;<a href='index.php' class='btn btn-danger'>Cancel Booking</a>" ; ?>
+                        <?php echo "<a href='confirmbooking.php?action=booked' class='btn btn-success'>Confirm Booking</a>&nbsp;&nbsp;<a href='confirmbooking.php?cancel=1' class='btn btn-danger'>Cancel Booking</a>" ; ?>
                       </td>
                     </tr>
             </tbody>

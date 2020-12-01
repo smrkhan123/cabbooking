@@ -5,6 +5,8 @@ include("Rides.php");
 if(isset($_SESSION['id'])){
   if($_SESSION['usertype'] != '0') {
       header("location:admin/admindashboard.php");
+  } elseif(isset($_SESSION['booking'])) {
+    header("location:confirmbooking.php");
   }
 }
 // $loc = new Locations();
@@ -18,7 +20,7 @@ if(isset($_POST['submit'])){
     $cabtype = $_POST['cab_type'];
     $distance = $_POST['distance'];
   if(!isset($_SESSION['id'])) {
-    header("location: login.php?submit=1&from=$from&to=$to&luggage=$luggage&fare=$fare&distance=$distance&cabtype=$cabtype");
+    header("location: login.php");
   } else {
     $user_id = $_SESSION['id'];
     $status = '1';

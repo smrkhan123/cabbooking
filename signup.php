@@ -17,8 +17,6 @@ include("Users.php");
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirmpassword'];
-	$isblock="";
-	
 	foreach($checksql as $chk) {
 		if($chk['user_name'] == $username) {
 			$error = "Username Already exists";
@@ -33,7 +31,7 @@ include("Users.php");
         $pass = md5($password);
         $register = new Users();
         $db = new config();
-        $sql = $register->signup($username, $name, $phone, 'user', $pass, $isblock, $db->conn);
+        $sql = $register->signup($username, $name, $phone, '0', $pass, '0', $db->conn);
         echo $sql;
     }
  }

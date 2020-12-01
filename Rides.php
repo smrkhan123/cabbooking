@@ -128,7 +128,7 @@ class Rides {
     }
 
     function filter_datewise($id, $date1, $date2, $status, $conn) {
-        $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' AND `status` = $status AND DATE(`ride_date`) BETWEEN '".$date1."' AND '".$date2."'";
+        $sql = "SELECT * FROM `ride` WHERE `customer_user_id` = '".$id."' AND `status` = '".$status."' AND DATE(`ride_date`) BETWEEN '".$date1."' AND '".$date2."'";
         $runqry = mysqli_query($conn, $sql);
         if(!$runqry){
             echo "Some error occured!".mysqli_error($conn);

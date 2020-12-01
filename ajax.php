@@ -89,7 +89,10 @@ if($cab=='cedmicro') {
     }
     $fare = $fare + (2*$l_price);
 }
-$_SESSION['fare']=$fare;
+// $_SESSION['fare']=$fare;
+if(!isset($_SESSION['username'])) {
+    $_SESSION['booking'] = array('from'=>$pick, 'to'=>$drop, 'cabtype'=>$cab,'luggage'=>$luggage, 'total_distance'=>$final_distance, 'fare'=>$fare);
+}
 $arr = array($fare, $final_distance);
 echo json_encode($arr);
 ?>
