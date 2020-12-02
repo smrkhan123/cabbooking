@@ -52,12 +52,38 @@ if (isset($_SESSION['id'])) {
 </head>
 <body>
 <div class="container-fluid" id='main'>
+	<header>
+      <nav class="navbar navbar-default" style="background: bottom; border: 0px;">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.php"><img src="logo.png" width="100" alt="CedCab" class="logoimage" style="margin-top:-40px;"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            	<li><a href="index.php">Book Cab</a></li>
+				<li class="active"><a href='login.php'>Login</a></li>
+				<li><a href='signup.php'>Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
 	<div class="container jumbotron" id='jumb'>
 		<div class="col-md-4 col-lg-4 col-sm-1">
 		</div>
 		<div class="col-md-4 col-lg-4 col-sm-10" id='abc'>
 			<center>
-				<img src="logo.png" alt="" style="margin-bottom: -40px;" width="100" height="100"/>
+				<a href="index.php"><img src="logo.png" alt="" style="margin-bottom: -40px;" width="100" height="100"/></a>
+				<div class="text-center" style="margin-top:20px;">
+					<a href="#" onclick="goBack()" class="btn btn-info btn-xs">Back</a>
+				</div>
 			</center>
 			<h2 style="text-align: center;">Account Login</h2>
 			<?php
@@ -85,12 +111,17 @@ if (isset($_SESSION['id'])) {
 				<div class="form-group" style="padding: 10px 0px;">
 					<input type="submit" class="btn btn-success form-control"  name="login" value="Login" style="padding: 5px 30px;">
 				</div>
-				<p style="font-size:16px; font-style:bold;color:white;text-align: center; margin-bottom: 20px;">Forget Password? <a href="#"> Click Here</a></p>
+				<!-- <p style="font-size:16px; font-style:bold;color:white;text-align: center; margin-bottom: 20px;">Forget Password? <a href="#"> Click Here</a></p> -->
 				<p style="font-size:16px; font-style:bold;color:white;text-align: center;">Do not an account? <a href="signup.php"> Click Here</a></p>
 			</form>
 		</div>
 		<div class="col-md-4 col-lg-4 col-sm-1"></div>
 	</div>
 </div>
+<script>
+	function goBack() {
+		window.history.back();
+		}
+</script>
 </body>
 </html>

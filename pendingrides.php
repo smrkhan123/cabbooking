@@ -18,21 +18,21 @@ if(isset($_GET['sort'])){
     $db = new config();
     $final = $obj->sort_col($id, $sort, $order, '1', $db->conn);
 }
-if(isset($_POST['fetch'])){
-  $date1 = $_POST['date1'];
-  $date2 = $_POST['date2'];
+if(isset($_GET['fetch'])){
+  $date1 = $_GET['date1'];
+  $date2 = $_GET['date2'];
   $id = $_SESSION['id'];
   $obj = new Rides();
   $db = new config();
-  $datewise = $obj->filter_datewise($id, $date1, $date2, '1', $db->conn);
+  $datewise = $obj->filter_datewise($id, $date1, $date2, '2', $db->conn);
   
 }
-if(isset($_POST['fetch_week'])){
-  $week = $_POST['week'];
+if(isset($_GET['fetch_week'])){
+  $week = $_GET['week'];
   $id = $_SESSION['id'];
   $obj = new Rides();
   $db = new config();
-  $datewise = $obj->filter_weekwise($id, $week, '1', $db->conn);
+  $datewise = $obj->filter_weekwise($id, $week, '2', $db->conn);
   // echo $datewise;
   // die();
 }
@@ -79,6 +79,7 @@ if(isset($_POST['fetch_week'])){
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
+            <li><a href='userdashboard.php'>Home</a></li>
             <li><a href="index.php">Book Cab</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
@@ -89,8 +90,14 @@ if(isset($_POST['fetch_week'])){
                 <li><a href="cancelledrides.php">Cancelled Rides</a></li>
               </ul>
             </li>
-            <li><a href='updateprofile.php'>Update Profile</a></li>
-            <li><a href='changepassword.php'>Change Password</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Account
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="updateprofile.php">Update Profile</a></li>
+                <li><a href="changepassword.php">Change Password</a></li>
+              </ul>
+            </li>
             <li><a><?php echo "Hey, &nbsp".$_SESSION['username']; ?></a></li>
             <li><a href='logout.php'>Logout</a></li>
             </ul>
@@ -103,32 +110,59 @@ if(isset($_POST['fetch_week'])){
     <div class="text-center">
         <h2>All Pending Rides</h2>
         <p>Here previous rides include Completed as well as Cancelled rides</p>
+        <div class="container">
+          <form action="pendingrides.php" method="get" class="col-md-6 col-lg-6">
+              Datewise Filter: 
+              <input type="hidden" name="datewise" value="1">
+              <input type="date" name="date1" <?php if(isset($_GET['datewise'])){ echo "value = ".$_GET['date1']; }?> required>
+              <input type="date" name="date2" <?php if(isset($_GET['datewise'])){ echo "value = ".$_GET['date2']; }?> required>
+              <input type="submit" value="fetch" name="fetch" <?php if(isset($_GET['datewise'])){ ?> style="background-color:blue;color:white;" <?php ;}?>>
+            </form>
+            <form action="pendingrides.php" method="get" class="col-md-6 col-lg-6">
+              WeekWise Filter: 
+              <input type="hidden" name="weekwise" value='1'>
+              <input type="week" name="week" <?php if(isset($_GET['weekwise'])){ echo "value = ".$_GET['week']; }?> required>
+              <input type="submit" value="fetch" name="fetch_week" <?php if(isset($_GET['weekwise'])){ ?> style="background-color:blue;color:white;" <?php ;}?>>
+            </form>
+      </div>
     </div>
       <div class="container text-center">
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th class="text-center">S.no</th>
-                    <th class="text-center">
-                      Date
-                      <a href="pendingrides.php?sort=ASC&val=ride_date"><p class="caret"></p></a>
-                      <a href="pendingrides.php?sort=DESC&val=ride_date"><p class="caret caret-dropup"></p></a>
-                    </th>
-                    <th class="text-center">From</th>
-                    <th class="text-center">To</th>
-                    <th class="text-center">
-                      Total Distance
-                      <a href="pendingrides.php?sort=ASC&val=total_distance"><p class="caret"></p></a>
-                      <a href="pendingrides.php?sort=DESC&val=total_distance"><p class="caret caret-dropup"></p></a>
-                    </th>
-                    <th class="text-center">Luggage</th>
-                    <th class="text-center">Cab Type</th>
-                    <th class="text-center">
-                      Total Fare
-                      <a href="pendingrides.php?sort=ASC&val=total_fare"><p class="caret"></p></a>
-                      <a href="pendingrides.php?sort=DESC&val=total_fare"><p class="caret caret-dropup"></p></a>
-                    </th>
-                    <th class="text-center">Status</th>
+              <tr>
+                  <th class="text-center">S.no</th>
+                  <th class="text-center">
+                    Date
+                    <a href="pendingrides.php?sort=ASC&val=ride_date&status=1">
+                      <p class="caret <?php if(isset($_GET['status'])){ if($_GET['status'] == 1) {?> caretStyle <?php ;} }?>"></p>
+                    </a>
+                    <a href="pendingrides.php?sort=DESC&val=ride_date&status=2">
+                      <p class="caret caret-dropup <?php if(isset($_GET['status'])){ if($_GET['status'] == 2) {?> caretStyle <?php ;} }?>"></p>
+                    </a>
+                  </th>
+                  <th class="text-center">From</th>
+                  <th class="text-center">To</th>
+                  <th class="text-center">
+                    Total Distance
+                    <a href="pendingrides.php?sort=ASC&val=total_distance&status=3">
+                      <p class="caret <?php if(isset($_GET['status'])){ if($_GET['status'] == 3) {?> caretStyle <?php ;} }?>"></p>
+                    </a>
+                    <a href="pendingrides.php?sort=DESC&val=total_distance&status=4">
+                      <p class="caret caret-dropup <?php if(isset($_GET['status'])){ if($_GET['status'] == 4) {?> caretStyle <?php ;} }?>"></p>
+                    </a>
+                  </th>
+                  <th class="text-center">Luggage</th>
+                  <th class="text-center">Cab Type</th>
+                  <th class="text-center">
+                    Total Fare
+                    <a href="pendingrides.php?sort=ASC&val=total_fare&status=5">
+                      <p class="caret <?php if(isset($_GET['status'])){ if($_GET['status'] == 5) {?> caretStyle <?php ;} }?>"></p>
+                    </a>
+                    <a href="pendingrides.php?sort=DESC&val=total_fare&status=6">
+                      <p class="caret caret-dropup <?php if(isset($_GET['status'])){ if($_GET['status'] == 6) {?> caretStyle <?php ;} }?>"></p>
+                    </a>
+                  </th>
+                  <th class="text-center">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -164,7 +198,7 @@ if(isset($_POST['fetch_week'])){
                                 <td><?php if($data['status'] == '0') { echo "Cancelled"; } elseif($data['status'] == '2'){ echo "Completed"; } else { echo "Pending"; }; ?></td>
                             </tr>
                         <?php
-                        if($data['status'] == '2'){
+                        if($data['status'] == '1'){
                           $price = $price + $data['total_fare'];
                         }
                     }
@@ -177,19 +211,6 @@ if(isset($_POST['fetch_week'])){
             ?>
             </tbody>
         </table>
-      </div>
-      <div class="container">
-        <form action="pendingrides.php" method="post">
-          Datewise Filter: 
-          <input type="date" name="date1" required>
-          <input type="date" name="date2" required>
-          <input type="submit" value="fetch" name="fetch">
-        </form>
-        <form action="pendingrides.php" method="post">
-          WeekWise Filter: 
-          <input type="week" name="week" required>
-          <input type="submit" value="fetch" name="fetch_week">
-        </form>
       </div>
     </section>
     <footer>

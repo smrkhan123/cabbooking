@@ -116,7 +116,6 @@ if(isset($_GET['sort'])){
                       <a href="allusers.php?sort=DESC&val=mobile"><p class="caret caret-dropup"></p></a>
                     </th>
                     <th class="text-center">Status</th>
-                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -137,11 +136,8 @@ if(isset($_GET['sort'])){
                         <td><?php echo ucfirst($data['user_name']); ?></td>
                         <td><?php echo ucfirst($data['name']); ?></td>
                         <td><?php echo ucfirst($data['mobile']); ?></td>
-                        <td><?php if($data['isblock'] == "0"){ echo "Blocked"; } else { echo "Unblocked"; } ?></td>
                         <td>
-                          <a href="allusers.php?update=1&data=<?php echo $id; ?>" <?php if($data['isblock'] == "0" ) { ?> class="btn btn-info btn-xs" <?php ; } else { ?> class="btn btn-danger btn-xs" <?php } ?>>
-                            <?php if($data['isblock'] == "0" ) { echo "Unblock"; } else { echo "Block"; } ?>
-                          </a>
+                          <?php if($data['isblock'] == "0"){ echo "<span class='label label-danger'>Blocked</span>"; } else { echo "<span class='label label-info'>Unblocked</span>"; } ?>
                         </td>
                     </tr>
                 <?php

@@ -62,10 +62,11 @@ if(isset($_POST['submit'])){
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="#main">Book Cab</a></li>
               <?php 
                 if(isset($_SESSION['id'])) { 
                   ?>
+                  <li><a href='userdashboard.php'>Home</a></li>
+                  <li class="active"><a href="#main">Book Cab</a></li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
                     <span class="caret"></span></a>
@@ -75,12 +76,18 @@ if(isset($_POST['submit'])){
                       <li><a href="cancelledrides.php">Cancelled Rides</a></li>
                     </ul>
                   </li>
-                  <li><a href='updateprofile.php'>Update Profile</a></li>
-                  <li><a href='changepassword.php'>Change Password</a></li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Account
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="updateprofile.php">Update Profile</a></li>
+                      <li><a href="changepassword.php">Change Password</a></li>
+                    </ul>
+                  </li>
                   <li><a>Hey, &nbsp;<?php echo $_SESSION['username']; ?></a></li>
                   <li><a href='logout.php'>Logout</a></li>
                 <?php } else {
-                  echo "<li><a href='login.php'>Login</a></li><li><a href='signup.php'>Sign Up</a></li>";
+                  echo "<li class='active'><a href='#main'>Book Cab</a></li><li><a href='login.php'>Login</a></li><li><a href='signup.php'>Sign Up</a></li>";
                 }
               ?>
             </ul>
@@ -151,7 +158,7 @@ if(isset($_POST['submit'])){
                 </div>
                 <div class="form-group">
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="luggage" id="luggage" placeholder="Enter Weight In KG">
+                    <input type="text" class="form-control" name="luggage" id="luggage" placeholder="Enter luggage weight In KG">
                   </div>
                 </div>
                 <input type="hidden" name="fare" id="buttonfare">
@@ -161,7 +168,7 @@ if(isset($_POST['submit'])){
                     <button type="button" id="calculatedFare" class="btn btn-default form-control sub_btn" onclick="farecalc()">Calculate Fare</button>
                   </div>
                   <div class="col-sm-offset-2 col-sm-10 subButton" style="margin-top:10px;">
-                    <button type="submit" id="calculatedFare" name="submit" class="btn btn-default form-control sub_btn" onclick="farecalc()">Book Now</button>
+                    <button type="submit" id="booknow" name="submit" class="btn btn-default form-control sub_btn">Book Now</button>
                   </div>
                 </div>
               </form>

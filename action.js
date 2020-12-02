@@ -13,11 +13,13 @@ function loc() {
     var x = document.getElementById("pickup").value;
     $("#drop option[value='" + x + "']").attr("disabled", "disabled").siblings().removeAttr("disabled");
     $("#calculatedFare").html("Calculate Fare");
+    $(".subButton").css("display", "none");
 }
 function droploc() {
     var x = document.getElementById("drop").value;
     $("#pickup option[value='" + x + "']").attr("disabled", "disabled").siblings().removeAttr("disabled");
     $("#calculatedFare").html("Calculate Fare");
+    $(".subButton").css("display", "none");
 }
 function cabType() {
     $("#calculatedFare").html("Calculate Fare");
@@ -28,6 +30,7 @@ function cabType() {
     } else {
         $("#luggage").prop('disabled', false);
     }
+    $(".subButton").css("display", "none");
 }
 function farecalc() {
     var pckup = $("#pickup").val();
@@ -43,7 +46,7 @@ function farecalc() {
             data: { pickup: pckup, drop: drp, cab: cb, luggage: lug },
             dataType: "json"
         }).done(function (msg) {
-            $("#calculatedFare").html("<strong>Calculated Fare: "+ msg[0] +"</strong>");
+            $("#calculatedFare").html("<strong>Calculated Fare: Rs. "+ msg[0] +"</strong>");
             $("#buttonfare").val(msg[0]);
             $("#distanceinput").val(msg[1]);
             $(".subButton").css("display", "block");
@@ -51,6 +54,8 @@ function farecalc() {
     }
 }
 $("#luggage").keyup(function(){
+    $("#calculatedFare").html("Calculate Fare");
+    $(".subButton").css("display", "none");
     var w =$("#luggage").val();
     if(isNaN(w) == true) {
         alert("Interger Value Needed");

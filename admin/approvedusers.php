@@ -115,7 +115,7 @@ if(isset($_GET['sort'])){
                       <a href="approvedusers.php?sort=ASC&val=mobile"><p class="caret"></p></a>
                       <a href="approvedusers.php?sort=DESC&val=mobile"><p class="caret caret-dropup"></p></a>
                     </th>
-                    <th class="text-center">Status</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -128,17 +128,27 @@ if(isset($_GET['sort'])){
                     $sql = $users->select_pending_users('1', $db->conn);
                 }
                 $i = 1;
-                foreach($sql as $data){
-                $id = $data['user_id'];
-                ?>
-                    <tr>
-                        <td><?php echo $i++; ?></td>
-                        <td><?php echo ucfirst($data['user_name']); ?></td>
-                        <td><?php echo ucfirst($data['name']); ?></td>
-                        <td><?php echo ucfirst($data['mobile']); ?></td>
-                        <td>Unblocked</td>
-                    </tr>
-                <?php
+                if($sql == '0'){
+                  ?>
+                    <tr><td colspan="5">No Data Avaialble</td></tr>
+                  <?php
+                } else {
+                  foreach($sql as $data){
+                  $id = $data['user_id'];
+                  ?>
+                      <tr>
+                          <td><?php echo $i++; ?></td>
+                          <td><?php echo ucfirst($data['user_name']); ?></td>
+                          <td><?php echo ucfirst($data['name']); ?></td>
+                          <td><?php echo ucfirst($data['mobile']); ?></td>
+                          <td>
+                            <a href="approvedusers.php?update=1&data=<?php echo $id; ?>" <?php if($data['isblock'] == "0" ) { ?> class="btn btn-info btn-xs" <?php ; } else { ?> class="btn btn-danger btn-xs" <?php } ?>>
+                              <?php if($data['isblock'] == "0" ) { echo "Unblock"; } else { echo "Block"; } ?>
+                            </a>
+                          </td>
+                      </tr>
+                  <?php
+                  }
                 }
             ?>
             </tbody>

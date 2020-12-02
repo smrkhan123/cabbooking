@@ -20,7 +20,7 @@ class Rides {
     
     }
     function select_ride($data, $conn) {
-        $sql = "SELECT * FROM ride WHERE status = '".$data."'";
+        $sql = "SELECT * FROM ride WHERE status = '".$data."' AND `is_delete` = 0";
         $run = mysqli_query($conn, $sql);
         if(mysqli_num_rows($run)>0){
             return $run;
@@ -62,10 +62,12 @@ class Rides {
     }
 
     function remove($id, $conn) {
-        $final = "UPDATE `ride` SET `is_delete` = 1 WHERE `ride_id` = $id";
+        $final = "UPDATE `ride` SET `is_delete` = '1' WHERE `ride_id` = '".$id."'";
         $runqry = mysqli_query($conn, $final);
         if(!$runqry){
             echo "Some error occured!".mysqli_error($conn);
+        } else {
+            return '1';
         }
     }
 
@@ -160,7 +162,22 @@ class Rides {
     function fetchRidedates($conn) {
         $sql = "SELECT sum(total_fare) AS total, ride_date, count(ride_date) FROM `ride` WHERE `status` = 2 GROUP BY DATE(`ride_date`)";
         $run = mysqli_query($conn, $sql);
-        if(mysqli_num_rows($run)){
+        if(mysqli_num_rows($run)>0){
+            return $run;
+        }
+    }
+    function users_data($id, $status, $conn) {
+        $sql = "SELECT * FROM ride WHERE `customer_user_id` = '".$id."' AND `status` = '".$status."'";
+        $run = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($run) > 0){
+            return $run;
+        }
+    }
+
+    function user_rides($id, $conn) {
+        $sql = "SELECT sum(total_fare) AS total, ride_date, count(ride_date) FROM `ride` WHERE (`customer_user_id` = '".$id."' AND `status` = 2) GROUP BY DATE(`ride_date`)";
+        $run = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($run) > 0){
             return $run;
         }
     }

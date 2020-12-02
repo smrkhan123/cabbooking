@@ -83,12 +83,36 @@ include("Users.php");
 </head>
 <body>
 <div class="container-fluid" id='main'>
+	<header>
+      <nav class="navbar navbar-default" style="background: bottom; border: 0px;">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.php"><img src="logo.png" width="100" alt="CedCab" class="logoimage" style="margin-top:-40px;"></a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            	<li><a href="index.php">Book Cab</a></li>
+				<li><a href='login.php'>Login</a></li>
+				<li class="active"><a href='signup.php'>Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
 	<div class="jumbotron" id='jumb'>
 		<div class="col-md-3 col-lg-3 col-sm-1">
 		</div>
 		<div class="col-md-6 col-lg-6 col-sm-10" id='abc'>
 			<center>
-				<a href="index.html"><img style="margin-bottom: -40px;" src="logo.png" alt="" width="100" height="100"/></a>
+				<a href="index.php"><img style="margin-bottom: -40px;" src="logo.png" alt="" width="100" height="100"/></a>
+				<!-- <a href="#" onclick="goBack()" class="btn btn-info btn-xs">Back</a> -->
 			</center>
             <h2 style="text-align: center;">Register Here</h2>
             <?php

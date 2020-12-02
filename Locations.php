@@ -59,10 +59,11 @@ class Locations {
         }
     }
     function update_loc($id, $name, $distance, $isavail, $conn) {
-        $sql = "UPDATE `location` SET `name` = '".$name."', `distance` = '".$distance."', `is_available` = 1 WHERE `id` = '".$id."'";
+        $sql = "UPDATE `location` SET `name` = '".$name."', `distance` = '".$distance."', `is_available` = '".$isavail."' WHERE `id` = '".$id."'";
         $run = mysqli_query($conn, $sql);
        if($run) {
-           return true;
+        echo "<script>alert('Location Updated successfully');</script>";
+        echo "<script>window.location.href = 'alllocation.php';</script>";
        } else{
            return false;
        }

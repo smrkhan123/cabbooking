@@ -3,9 +3,11 @@ session_start();
 include("Locations.php");
 include("Rides.php");
 if(isset($_SESSION['id'])){
-  if($_SESSION['usertype'] != '0') {
-      header("location:admin/admindashboard.php");
-  }
+  if(!isset($_SESSION['booking'])){
+    header("location: index.php");
+  } elseif($_SESSION['usertype'] != '0') {
+    header("location:admin/admindashboard.php");
+}
 } else {
   header("location:index.php");
 }
@@ -29,7 +31,7 @@ if(isset($_SESSION['id'])){
 
     if(isset($_GET['cancel'])) {
       unset($_SESSION['booking']);
-      header("location:index.php");
+      header("location:userdashboard.php");
     }
     
 ?>
@@ -77,11 +79,27 @@ if(isset($_SESSION['id'])){
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
+            <li><a href='userdashboard.php'>Home</a></li>
             <li><a href="index.php">Book Cab</a></li>
-            <li class="active"><a href='previousrides.php'>Rides</a></li>
-            <li><a href='updateprofile.php'>Update Profile</a></li>
-            <li><a href='changepassword.php'>Change Password</a></li>
-            <li><a><?php echo "Hey, &nbsp".$_SESSION['username']; ?></a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="previousrides.php">Completed Rides</a></li>
+                <li><a href="pendingrides.php">Pending Rides</a></li>
+                <li><a href="cancelledrides.php">Cancelled Rides</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Account
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="updateprofile.php">Update Profile</a></li>
+                <li><a href="changepassword.php">Change Password</a></li>
+              </ul>
+            </li>
+            <li><a>Hey, &nbsp;<?php echo $_SESSION['username']; ?></a></li>
+            <!-- <li><a></a></li> -->
             <li><a href='logout.php'>Logout</a></li>
             </ul>
           </div>

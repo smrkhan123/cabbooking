@@ -9,7 +9,15 @@ if(isset($_SESSION['id'])){
 } else {
     header("location:../index.php");
 }
-
+if(isset($_GET['cancelled'])){
+  $id = $_GET['id'];
+  $blck = new Rides();
+  $db = new config();
+  $final = $blck->remove($id, $db->conn);
+  if($final == '1'){
+    header("location: cancelledrides.php");
+  }
+}
 if(isset($_GET['sort'])){
   $order = $_GET['sort'];
   $sort = $_GET['val'];
@@ -120,6 +128,8 @@ if(isset($_GET['sort'])){
                 <?php
                     if(isset($_GET['sort'])) {
                       $sql = $final; 
+                    }elseif(isset($GET['cancelled'])){
+                      $sql = $final;
                     } else {
                         $rides = new Rides();
                         $db = new config();
@@ -143,7 +153,7 @@ if(isset($_GET['sort'])){
                                 <td><?php echo ucfirst($data['cabtype']); ?></td>
                                 <td><?php echo ucfirst($data['total_fare']); ?></td>
                                 <td><?php echo ucfirst($data['customer_user_id']); ?></td>
-                                <td><a href="cancelledrides.php?ride=1&id=<?php echo $data['ride_id']; ?>" class="btn btn-danger btn-xs">Remove</a></td>
+                                <td><a href="cancelledrides.php?cancelled=1&id=<?php echo $data['ride_id']; ?>" class="btn btn-danger btn-xs">Remove</a></td>
                             </tr>
                         <?php
                       }

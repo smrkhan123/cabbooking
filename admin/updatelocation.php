@@ -12,9 +12,10 @@ if(isset($_POST['update'])){
     $id = $_POST['id'];
     $name = $_POST['name'];
     $distance = $_POST['distance'];
+    $isavailable = $_POST['isavailable'];
     $obj = new Locations();
     $db = new config();
-    $sql = $obj->update_loc($id, $name, $distance, 1, $db->conn);
+    $sql = $obj->update_loc($id, $name, $distance, $isavailable, $db->conn);
     if($sql){
       header("location: alllocations.php");
     } else {
@@ -107,6 +108,13 @@ if(isset($_POST['update'])){
                 <div class="form-group">
                     <label for="distance">Distance From Charbagh</label>
                     <input type="number" class="form-control" name="distance" value="<?php echo $val['distance']; ?>">
+                </div>
+                <div class="form-group">
+                  <label for="isavailable">Availibility</label>
+                  <select name="isavailable" id="isavailable" class="form-control">
+                    <option value="1" <?php if($val['is_available']=='1'){?>selected<?php ;} ?>>Available</option>
+                    <option value="0" <?php if($val['is_available']=='0'){?>selected<?php ;} ?>>Unavailable</option>
+                  </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="form-control btn btn-success" name="update" value="Update">

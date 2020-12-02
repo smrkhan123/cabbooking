@@ -140,7 +140,6 @@ if(isset($_GET['sort'])){
                         <td><?php if($data['is_available'] == 1) { echo "Available"; } else { echo "Unavailable"; } ?></td>
                         <td>
                             <a href="updatelocation.php?id=<?php echo $data['id']; ?>" class="btn btn-xs btn-info btn-sm">Edit</a>
-                            <a href="alllocations.php?enable=1&id=<?php echo $data['id']; ?>" class="btn btn-xs btn-warning btn-sm">Enable/Disable</a>
                             <a href="alllocations.php?delete=1&id=<?php echo $data['id']; ?>" class="btn btn-xs btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>

@@ -16,7 +16,7 @@ class Users {
             if($isblock == "1") {
                 header("location:login.php");
             } else {
-                echo "<script>alert('You are successfully registered! Please wait for admin appeovel.');</script>";
+                echo "<script>alert('You are successfully registered! Please wait for admin approval.');</script>";
             }
         }
     }
@@ -29,7 +29,7 @@ class Users {
         if ($row>0) {
 			$data = mysqli_fetch_assoc($run);
             if($data['isblock']== "0" ){
-                echo "<script>alert('You are successfully registered! Please wait for admin approvel.');</script>";
+                echo "<script>alert('You are successfully registered! Please wait for admin approval.');</script>";
             } else {
                 if($remember != "") {
                     setcookie("member", $username, time()+10*365*24*60*60);
@@ -48,7 +48,7 @@ class Users {
 				if($usertype == "1"){
 					header("location:admin/admindashboard.php");
 				} else {
-                    header("location:index.php");
+                    header("location:userdashboard.php");
                 } 
             }
         } else {
@@ -80,6 +80,8 @@ class Users {
         $rows = mysqli_num_rows($run);
         if($rows>0) {
             return $run;
+        } else {
+            return '0';
         }
     }
 
@@ -110,6 +112,13 @@ class Users {
             $runqry = mysqli_query($conn, $final);
             if(!$runqry){
                 echo "Some error occured!".mysqli_error($conn);
+            } else {
+                if($isblck == '1') {
+                    header("location: pendingusers.php");
+                } else {
+                    header("location: approvedusers.php");
+                }
+                
             }
         }
     }
@@ -121,7 +130,7 @@ class Users {
             if($isblock == "1") {
                 header("location:login.php");
             } else {
-                echo "<script>alert('You are successfully registered! Please wait for admin appeovel.');</script>";
+                echo "<script>alert('You are successfully registered! Please wait for admin approval.');</script>";
             }
         } else {
             die("Some errror Occured". mysqli_error($conn));
@@ -160,7 +169,7 @@ class Users {
         if(!$runqry){
             return '0';
         } else {
-            return $runqry;
+            return '1';
         }
     }
 }

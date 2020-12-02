@@ -68,8 +68,9 @@ $comp = $obj1->select_invoice($id, $db->conn);
     <div id="page-content-wrapper">
       <div>
         <div class="panel-body text-right">
-        <h4> Hey, <?php echo $_SESSION['username']; ?>
-          <a href='../logout.php'>Logout</a></h4>
+          <h4 id="userData"> Hey, <?php echo $_SESSION['username']; ?>
+            <a href='../logout.php'>Logout</a>
+          </h4>
         </div>
       </div>
       <div class="container-fluid">
@@ -79,47 +80,53 @@ $comp = $obj1->select_invoice($id, $db->conn);
                 <div class="row panel panel-default">
                     <div class="text-center panel-heading"><h1>Invoice</h1></div>
                     <div class="panel-body">
-                        <div class="col-md-6 col-lg-6">
-                            <h3>Date:</h3>
-                            <h3>Ride Id:</h3>
-                            <h3>Name</h3>
-                            <h3>From:</h3>
-                            <h3>To:</h3>
-                            <h3>Total Distance: </h3>
-                            <h3>Cab Type:</h3>
-                            <h3>Luggage:</h3>
-                        </div>
-                        <div class="col-md-6 col-lg-6">
+                        <table class="table">
                         <?php foreach($comp as $data) {
                             ?>
-                                <h3><?php echo $data['ride_date']; ?></h3>
-                                <h3><?php echo $data['ride_id']; ?></h3>
-                                <h3>
-                                  <?php
-                                    $selectUser = new Users();
-                                    $users = $selectUser->select_user_id($data['customer_user_id'], $db->conn);
-                                    if($users == '0') {
-                                      echo "Unknown User";
-                                    } else {
-                                        foreach($users as $user) {
-                                          $username = $user['name'];
-                                        }
-                                        echo ucfirst($username);
-                                    }
-                                  ?>
-                                </h3>
-                                <h3><?php echo $data['from']; ?></h3>
-                                <h3><?php echo $data['to']; ?></h3>
-                                <h3><?php echo $data['total_distance']; ?></h3>
-                                <h3><?php echo ucfirst($data['cabtype']); ?></h3>
-                                <h3><?php echo $data['luggage']; ?></h3>
-                            <?php
+                          <tr>
+                            <th><h3>Date:</h3></th><td class="text-center"><h3><?php echo $data['ride_date']; ?></h3></td>
+                          </tr>
+                          <tr>
+                            <th><h3>Ride Id:</h3></th><td class="text-center"><h3><?php echo $data['ride_id']; ?></h3></td>
+                          </tr>
+                          <tr>  
+                            <th><h3>Name:</h3></th><td class="text-center"><h3>
+                              <?php
+                                  $selectUser = new Users();
+                                  $users = $selectUser->select_user_id($data['customer_user_id'], $db->conn);
+                                  if($users == '0') {
+                                    echo "Unknown User";
+                                  } else {
+                                      foreach($users as $user) {
+                                        $username = $user['name'];
+                                      }
+                                      echo ucfirst($username);
+                                  }
+                                ?>
+                                </h3></td>
+                          </tr>
+                          <tr>
+                            <th><h3>From:</h3></th><td class="text-center"><h3><?php echo ucfirst($data['from']); ?></h3></td>
+                          </tr>
+                          <tr>
+                            <th><h3>To:</h3></th><td class="text-center"><h3><?php echo ucfirst($data['to']); ?></h3></td>
+                          </tr>
+                          <tr>
+                            <th><h3>Total Distance:</h3></th><td class="text-center"><h3><?php echo $data['total_distance']; ?></h3></td>
+                          </tr>
+                          <tr>
+                            <th><h3>Cab Type:</h3></th><td class="text-center"><h3><?php echo ucfirst($data['cabtype']); ?></h3></td>
+                          </tr>
+                          <tr>
+                            <th><h3>Luggage:</h3></th><td class="text-center"><h3><?php if($data['luggage'] == '') { echo '0KG'; } else { echo $data['luggage']."KG";} ?></h3></td>
+                          </tr>
+                          <tr>
+                              <th class="text-center"><h2>Total fare: </h2></th><td class="text-center"><h1><?php echo "Rs.".$data['total_fare']; ?></h1></td>
+                          </tr>
+                          <?php
                         } ?>
-                        </div>
-                    </div>
-                    <div class="panel-footer text-center">
-                        <h2>Total Fare:  <?php echo $data['total_fare']; ?></h2>
-                    </div>
+                        </table>
+                        <p class="text-center" id="printButton"><button class="btn btn-primary" onclick="printScr()">Print</button></p>
                 </div>
             </div>
             <div class="col-md-2 col-lg-2"></div>
@@ -128,5 +135,12 @@ $comp = $obj1->select_invoice($id, $db->conn);
     </div>
   </div>
   <script src="../action.js"></script>
+  <script>
+    function printScr() {
+      $('#userData').css('display', 'none');
+      $('#printButton').css('display', 'none');
+      window.print();
+    }
+  </script>
 </body>
 </html>

@@ -15,6 +15,9 @@ if(isset($_GET['ride'])){
     $blck = new Rides();
     $db = new config();
     $sql = $blck->remove($id, $db->conn);
+    if($sql == '1') {
+      header("location: pastrides.php");
+    }
 }
 if(isset($_GET['sort'])){
   $order = $_GET['sort'];
@@ -146,7 +149,7 @@ if(isset($_GET['sort'])){
                                     <td><?php echo ucfirst($data['cabtype']); ?></td>
                                     <td><?php echo ucfirst($data['total_fare']); ?></td>
                                     <td><?php echo ucfirst($data['customer_user_id']); ?></td>
-                                    <td><a href="pastrides.php?ride=1&id=<?php echo $data['ride_id']; ?>" class="btn btn-danger btn-xs">Remove</a>&nbsp;<a href="invoice.php?id=<?php echo $data['ride_id']; ?>" class="btn btn-success btn-xs">Print Invoice</a></td>
+                                    <td><a href="pastrides.php?ride=1&id=<?php echo $data['ride_id']; ?>" class="btn btn-danger btn-xs">Remove</a>&nbsp;<a href="invoice.php?id=<?php echo $data['ride_id']; ?>" class="btn btn-success btn-xs">View</a></td>
                                 </tr>
                             <?php
                     }
