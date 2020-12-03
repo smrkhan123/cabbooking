@@ -11,10 +11,9 @@ if(isset($_SESSION['id'])){
 if(isset($_POST['submit'])){
     $name = $_POST['name'];
     $distance = $_POST['distance'];
-    $isavailable = $_POST['isavailable'];
     $db = new config();
     $obj = new Locations();
-    $sql = $obj->insert($name, $distance, $isavailable, $db->conn);
+    $sql = $obj->insert($name, $distance, $db->conn);
     header("location: alllocations.php");
 }
 ?>

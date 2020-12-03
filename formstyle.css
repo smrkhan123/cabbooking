@@ -1,0 +1,70 @@
+#main {
+    background-image: url('https://img.wallpapersafari.com/desktop/1680/1050/90/92/Nh7w6d.png');
+    background-size: 100% 100%;
+}
+
+#jumb {
+    color: white;
+    padding-top: 50px;
+}
+.row {
+    margin: 0px !important;
+}
+
+a {
+    color: white;
+}
+
+#abc {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    margin-bottom: 100px;
+}
+
+.form-group {
+    padding: 5px 0px;
+    margin-left: 0px !important;
+    text-align: left;
+}
+
+.pfooter {
+    font-size: 16px;
+    font-style: bold;
+    color: white;
+    text-align: center;
+}
+#error {
+    color:red; 
+    text-align:center !important;
+}
+.caret {
+margin: 2px;
+margin-left: 5px;
+color: blue;
+}
+
+.caret-dropup {
+transform: rotate(180deg);
+color: blue;
+}
+
+.caretStyle {
+border-left: 8px solid transparent;
+border-right: 8px solid transparent;
+border-top: 8px solid darkblue;
+}
+#submitbutton {
+    padding: 10px 0px;
+}
+#submitbutton > input {
+    padding: 5px 30px !important;
+}
+#notaccount {
+    font-size:16px;
+    font-style:bold;
+    color:white;
+    text-align: center;
+}
+#abc a img {
+    margin-bottom: -40px;
+}

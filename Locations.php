@@ -66,7 +66,7 @@ class Locations {
         $run = mysqli_query($conn, $sql);
        if($run) {
         echo "<script>alert('Location Updated successfully');</script>";
-        echo "<script>window.location.href = 'alllocation.php';</script>";
+        echo "<script>window.location.href = 'alllocations.php';</script>";
        } else{
            return false;
        }
