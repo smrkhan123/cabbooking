@@ -4,14 +4,11 @@ include("Locations.php");
 include("Rides.php");
 if(isset($_SESSION['id'])){
   if($_SESSION['usertype'] != '0') {
-      header("location:admin/admindashboard.php");
+      header("location:admin/index.php");
   } elseif(isset($_SESSION['booking'])) {
     header("location:confirmbooking.php");
   }
 }
-// $loc = new Locations();
-// $db = new config();
-// $sql = $loc->select_loc($db->conn);
 if(isset($_POST['submit'])){
     $from = $_POST['pickup'];
     $to = $_POST['drop'];
@@ -33,6 +30,7 @@ if(isset($_POST['submit'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +42,7 @@ if(isset($_POST['submit'])){
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div id="wrapper">
     <!-- Header Section -->
@@ -65,28 +64,28 @@ if(isset($_POST['submit'])){
               <?php 
                 if(isset($_SESSION['id'])) { 
                   ?>
-                  <li><a href='userdashboard.php'>Home</a></li>
-                  <li class="active"><a href="#main">Book Cab</a></li>
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
-                    <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="previousrides.php">Completed Rides</a></li>
-                      <li><a href="pendingrides.php">Pending Rides</a></li>
-                      <li><a href="cancelledrides.php">Cancelled Rides</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Account
-                    <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="updateprofile.php">Update Profile</a></li>
-                      <li><a href="changepassword.php">Change Password</a></li>
-                    </ul>
-                  </li>
-                  <li><a>Hey, &nbsp;<?php echo $_SESSION['username']; ?></a></li>
-                  <li><a href='logout.php'>Logout</a></li>
-                <?php } else {
+              <li><a href='userdashboard.php'>Home</a></li>
+              <li class="active"><a href="#main">Book Cab</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
+                  <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="previousrides.php">Completed Rides</a></li>
+                  <li><a href="pendingrides.php">Pending Rides</a></li>
+                  <li><a href="cancelledrides.php">Cancelled Rides</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Account
+                  <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="updateprofile.php">Update Profile</a></li>
+                  <li><a href="changepassword.php">Change Password</a></li>
+                </ul>
+              </li>
+              <li><a>Hey, &nbsp;<?php echo $_SESSION['username']; ?></a></li>
+              <li><a href='logout.php'>Logout</a></li>
+              <?php } else {
                   echo "<li class='active'><a href='#main'>Book Cab</a></li><li><a href='login.php'>Login</a></li><li><a href='signup.php'>Sign Up</a></li>";
                 }
               ?>
@@ -122,8 +121,8 @@ if(isset($_POST['submit'])){
                         $sql = $loc->select($db->conn);
                         while($data = mysqli_fetch_assoc($sql)){
                           ?>
-                            <option value="<?php echo $data['name']; ?>"><?php echo ucfirst($data['name']); ?></option>
-                          <?php
+                      <option value="<?php echo $data['name']; ?>"><?php echo ucfirst($data['name']); ?></option>
+                      <?php
                         }
                       ?>
                     </select>
@@ -138,8 +137,8 @@ if(isset($_POST['submit'])){
                         $sql = $loc->select($db->conn);
                         while($data = mysqli_fetch_assoc($sql)){
                           ?>
-                            <option value="<?php echo $data['name']; ?>"><?php echo ucfirst($data['name']); ?></option>
-                          <?php
+                      <option value="<?php echo $data['name']; ?>"><?php echo ucfirst($data['name']); ?></option>
+                      <?php
                         }
                       ?>
                     </select>
@@ -158,17 +157,20 @@ if(isset($_POST['submit'])){
                 </div>
                 <div class="form-group">
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="luggage" id="luggage" placeholder="Enter luggage weight In KG">
+                    <input type="text" class="form-control" name="luggage" id="luggage"
+                      placeholder="Enter luggage weight In KG">
                   </div>
                 </div>
                 <input type="hidden" name="fare" id="buttonfare">
                 <input type="hidden" name="distance" id="distanceinput">
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" id="calculatedFare" class="btn btn-default form-control sub_btn" onclick="farecalc()">Calculate Fare</button>
+                    <button type="button" id="calculatedFare" class="btn btn-default form-control sub_btn"
+                      onclick="farecalc()">Calculate Fare</button>
                   </div>
                   <div class="col-sm-offset-2 col-sm-10 subButton" style="margin-top:10px;">
-                    <button type="submit" id="booknow" name="submit" class="btn btn-default form-control sub_btn">Book Now</button>
+                    <button type="submit" id="booknow" name="submit" class="btn btn-default form-control sub_btn">Book
+                      Now</button>
                   </div>
                 </div>
               </form>
@@ -202,4 +204,5 @@ if(isset($_POST['submit'])){
   </div>
   <script src="action.js"></script>
 </body>
+
 </html>

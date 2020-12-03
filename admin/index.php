@@ -70,6 +70,7 @@ foreach($ridedate as $eachride) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,16 +82,18 @@ foreach($ridedate as $eachride) {
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div id="wrap">
-        <!-- Sidebar -->
+    <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand" style="background-color:white;">
-          <a class="" href="#"><img src="../logo.png" width="100" alt="CedCab" class="logoimage" style="margin-bottom:-40px"></a>
+          <a class="" href="#"><img src="../logo.png" width="100" alt="CedCab" class="logoimage"
+              style="margin-bottom:-40px"></a>
         </li>
         <li>
-            <h4><a class="active" style="color:white;" href="admindashboard.php">Home</a></h4>
+          <h4><a class="active" style="color:white;" href="index.php">Home</a></h4>
         </li>
         <li>
           <h4><a href="#" style="color:white;">Rides</a></h4>
@@ -112,7 +115,7 @@ foreach($ridedate as $eachride) {
         </li>
         <li>
           <a href='../logout.php'>Logout</a>
-        </li>   
+        </li>
       </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -121,8 +124,8 @@ foreach($ridedate as $eachride) {
     <div id="page-content-wrapper">
       <div>
         <div class="panel-body text-right">
-        <h4> Hey, <?php echo $_SESSION['username']; ?>
-          <a href='../logout.php'>Logout</a></h4>
+          <h4> Hey, <?php echo $_SESSION['username']; ?>
+            <a href='../logout.php'>Logout</a></h4>
         </div>
       </div>
       <div class="container-fluid">
@@ -195,20 +198,20 @@ foreach($ridedate as $eachride) {
 
     //for displaying all rides data
     // Load google charts
-    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
     // Draw the chart and set the chart values
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
-      ['Rides', 'All rides till date'],
-      ['Completed', rides[0]],
-      ['Cancelled', rides[1]],
-      ['Pending', rides[2]],
-    ]);
+        ['Rides', 'All rides till date'],
+        ['Completed', rides[0]],
+        ['Cancelled', rides[1]],
+        ['Pending', rides[2]],
+      ]);
 
       // Optional; add a title and set the width and height of the chart
-      var options = {'title':'Total Rides', 'width':550, 'height':400};
+      var options = { 'title': 'Total Rides', 'width': 550, 'height': 400 };
 
       // Display the chart inside the <div> element with id="piechart"
       var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -217,19 +220,19 @@ foreach($ridedate as $eachride) {
 
     //for displaying all users data
     // Load google charts
-    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(dChart);
 
     // Draw the chart and set the chart values
     function dChart() {
       var data = google.visualization.arrayToDataTable([
-      ['Users', 'All Blocked/Unblocked Users'],
-      ['Active', users[0]],
-      ['Blocked', users[1]],
-    ]);
+        ['Users', 'All Blocked/Unblocked Users'],
+        ['Active', users[0]],
+        ['Blocked', users[1]],
+      ]);
 
       // Optional; add a title and set the width and height of the chart
-      var options = {'title':'Total Users', 'width':550, 'height':400};
+      var options = { 'title': 'Total Users', 'width': 550, 'height': 400 };
 
       // Display the chart inside the <div> element with id="piechart"
       var chart = new google.visualization.PieChart(document.getElementById('piechartusers'));
@@ -240,7 +243,7 @@ foreach($ridedate as $eachride) {
     //for displaying line chart
     show('line');
     function showchart(type) {
-      if(type == 0) {
+      if (type == 0) {
         show('bar');
       } else {
         show('line');
@@ -250,42 +253,43 @@ foreach($ridedate as $eachride) {
     function show(showType) {
       var ctx = document.getElementById('myChart').getContext('2d');
       var myChart = new Chart(ctx, {
-          type: showType,
-          data: {
-              labels: ride_dates,
-              datasets: [{
-                  label: 'Earning On Given Date',
-                  data: ride_earning,
-                  backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)'
-                  ],
-                  borderColor: [
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)'
-                  ],
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero: true
-                      }
-                  }]
+        type: showType,
+        data: {
+          labels: ride_dates,
+          datasets: [{
+            label: 'Earning On Given Date',
+            data: ride_earning,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
               }
+            }]
           }
+        }
       });
     }
   </script>
 </body>
+
 </html>

@@ -21,6 +21,7 @@ if(isset($_POST['submit'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,82 +33,84 @@ if(isset($_POST['submit'])){
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
   <style>
-      .form-group {
-          text-align: left;
-      }
+    .form-group {
+      text-align: left;
+    }
   </style>
 </head>
+
 <body>
   <div id="wrap">
     <!-- Sidebar Section -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-          <li class="sidebar-brand" style="background-color:white;">
-            <a class="" href="#"><img src="../logo.png" width="100" alt="CedCab" class="logoimage" style="margin-bottom:-40px"></a>
-          </li>
-          <li>
-              <h4><a style="color:white;" href="admindashboard.php">Home</a></h4>
-          </li>
-          <li>
-            <h4><a href="#" style="color:white;">Rides</a></h4>
-            <a href='requestedrides.php'>Pending Rides</a>
-            <a href='pastrides.php'>Compeleted Rides</a>
-            <a href='cancelledrides.php'>Cancelled Rides</a>
-            <a href='allrides.php'>All Rides</a>
-          </li>
-          <li>
-            <h4><a href="#" style="color:white;">Locations</a></h4>
-            <a href='alllocations.php'>All Locations</a>
-            <a class="active" href='addlocation.php'>Add New Locations</a>
-          </li>
-          <li>
-            <h4><a href="#" style="color:white;">Users</a></h4>
-            <a href='pendingusers.php'>Pending User Requests</a>
-            <a href='approvedusers.php'>Approved User Requests</a>
-            <a href='allusers.php'>All Users</a>
-          </li>
-          <li>
-            <a href='../logout.php'>Logout</a>
-          </li>
-          
+        <li class="sidebar-brand" style="background-color:white;">
+          <a class="" href="#"><img src="../logo.png" width="100" alt="CedCab" class="logoimage"
+              style="margin-bottom:-40px"></a>
+        </li>
+        <li>
+          <h4><a style="color:white;" href="index.php">Home</a></h4>
+        </li>
+        <li>
+          <h4><a href="#" style="color:white;">Rides</a></h4>
+          <a href='requestedrides.php'>Pending Rides</a>
+          <a href='pastrides.php'>Compeleted Rides</a>
+          <a href='cancelledrides.php'>Cancelled Rides</a>
+          <a href='allrides.php'>All Rides</a>
+        </li>
+        <li>
+          <h4><a href="#" style="color:white;">Locations</a></h4>
+          <a href='alllocations.php'>All Locations</a>
+          <a class="active" href='addlocation.php'>Add New Locations</a>
+        </li>
+        <li>
+          <h4><a href="#" style="color:white;">Users</a></h4>
+          <a href='pendingusers.php'>Pending User Requests</a>
+          <a href='approvedusers.php'>Approved User Requests</a>
+          <a href='allusers.php'>All Users</a>
+        </li>
+        <li>
+          <a href='../logout.php'>Logout</a>
+        </li>
+
       </ul>
     </div>
     <!-- Main Section/ Landing Page -->
     <section id="main">
       <div>
         <div class="panel-body text-right">
-        <h4> Hey, <?php echo $_SESSION['username']; ?>
-          <a href='../logout.php'>Logout</a></h4>
+          <h4> Hey, <?php echo $_SESSION['username']; ?>
+            <a href='../logout.php'>Logout</a></h4>
         </div>
       </div>
-    <div class="text-center">
+      <div class="text-center">
         <h2>Add Locations</h2>
         <p>Here you can add Locations</p>
-    </div>
-    <div class="container">
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
             <form class="form" action="" method="POST">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="distance">Distance From Charbagh</label>
-                    <input type="number" class="form-control" name="distance" required>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="form-control btn btn-success" name="submit" value="Submit">
-                </div>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" pattern="[a-zA-Z]+[a-zA-Z0-9\s]*" required>
+              </div>
+              <div class="form-group">
+                <label for="distance">Distance From Charbagh</label>
+                <input type="number" class="form-control" name="distance" required>
+              </div>
+              <div class="form-group">
+                <input type="submit" class="form-control btn btn-success" name="submit" value="Submit">
+              </div>
             </form>
+          </div>
+          <div class="col-md-3"></div>
         </div>
-        <div class="col-md-3"></div>
-    </div>
-    <div class="text-center">
-        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-    </div>
-    </div>
+        <div class="text-center">
+          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+        </div>
+      </div>
     </section>
     <footer>
       <div class="sect10 text-center">
@@ -132,4 +135,5 @@ if(isset($_POST['submit'])){
   </div>
   <script src="../action.js"></script>
 </body>
+
 </html>

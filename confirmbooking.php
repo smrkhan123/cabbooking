@@ -6,7 +6,7 @@ if(isset($_SESSION['id'])){
   if(!isset($_SESSION['booking'])){
     header("location: index.php");
   } elseif($_SESSION['usertype'] != '0') {
-    header("location:admin/admindashboard.php");
+    header("location:admin/index.php");
 }
 } else {
   header("location:index.php");
@@ -38,6 +38,7 @@ if(isset($_SESSION['id'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,18 +50,22 @@ if(isset($_SESSION['id'])){
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
   <style>
-  .caret {
-    margin:2px;
-    margin-left:5px;
-  }
+    .caret {
+      margin: 2px;
+      margin-left: 5px;
+    }
+
     .caret-dropup {
       transform: rotate(180deg);
     }
-  table th, table td {
-    text-align: center !important;
-  }
+
+    table th,
+    table td {
+      text-align: center !important;
+    }
   </style>
 </head>
+
 <body>
   <div id="wrapper">
     <!-- Header Section -->
@@ -79,28 +84,28 @@ if(isset($_SESSION['id'])){
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            <li><a href='userdashboard.php'>Home</a></li>
-            <li><a href="index.php">Book Cab</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="previousrides.php">Completed Rides</a></li>
-                <li><a href="pendingrides.php">Pending Rides</a></li>
-                <li><a href="cancelledrides.php">Cancelled Rides</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Account
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="updateprofile.php">Update Profile</a></li>
-                <li><a href="changepassword.php">Change Password</a></li>
-              </ul>
-            </li>
-            <li><a>Hey, &nbsp;<?php echo $_SESSION['username']; ?></a></li>
-            <!-- <li><a></a></li> -->
-            <li><a href='logout.php'>Logout</a></li>
+              <li><a href='userdashboard.php'>Home</a></li>
+              <li><a href="index.php">Book Cab</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Rides
+                  <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="previousrides.php">Completed Rides</a></li>
+                  <li><a href="pendingrides.php">Pending Rides</a></li>
+                  <li><a href="cancelledrides.php">Cancelled Rides</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="previousrides.php">Account
+                  <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="updateprofile.php">Update Profile</a></li>
+                  <li><a href="changepassword.php">Change Password</a></li>
+                </ul>
+              </li>
+              <li><a>Hey, &nbsp;<?php echo $_SESSION['username']; ?></a></li>
+              <!-- <li><a></a></li> -->
+              <li><a href='logout.php'>Logout</a></li>
             </ul>
           </div>
         </div>
@@ -108,37 +113,70 @@ if(isset($_SESSION['id'])){
     </header>
     <!-- Main Section/ Landing Page -->
     <section id="main">
-    <div class="text-center">
+      <div class="text-center">
         <h2>Confirm your Booking Here</h2>
         <!-- <p>Here previous rides include Completed as well as Cancelled rides</p>  -->
-    </div>
+      </div>
       <div class="container text-center">
         <table class="table table-striped">
-            <tbody>
-                    <tr> 
-                      <th><h4>From</h4></th><td><h4><?php echo ucfirst($from); ?></h4></td>
-                    </tr>
-                    <tr>
-                      <th><h4>To</h4></th><td><h4><?php echo ucfirst($to); ?></h4></td>
-                    </tr>
-                    <tr>
-                      <th><h4>Luggage</h4></th><td><h4><?php if($luggage == "") { echo "0"; } else { echo $luggage; } ?></h4></td>
-                    </tr>
-                    <tr>
-                      <th><h4>CabType</h4></th><td><h4><?php echo ucfirst($cabtype); ?></td>
-                    </tr>
-                    <tr>
-                      <th><h4>Distance</h4></th><td><h4><?php echo ucfirst($distance); ?></h4></td>
-                    </tr>
-                    <tr>
-                      <th><h4>Fare</h4></th><td><h4><?php echo ucfirst($fare); ?></h4></td>
-                    </tr>
-                    <tr>
-                      <th><h4>Action</h4></th><td>
-                        <?php echo "<a href='confirmbooking.php?action=booked' class='btn btn-success'>Confirm Booking</a>&nbsp;&nbsp;<a href='confirmbooking.php?cancel=1' class='btn btn-danger'>Cancel Booking</a>" ; ?>
-                      </td>
-                    </tr>
-            </tbody>
+          <tbody>
+            <tr>
+              <th>
+                <h4>From</h4>
+              </th>
+              <td>
+                <h4><?php echo ucfirst($from); ?></h4>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <h4>To</h4>
+              </th>
+              <td>
+                <h4><?php echo ucfirst($to); ?></h4>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <h4>Luggage</h4>
+              </th>
+              <td>
+                <h4><?php if($luggage == "") { echo "0"; } else { echo $luggage; } ?></h4>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <h4>CabType</h4>
+              </th>
+              <td>
+                <h4><?php echo ucfirst($cabtype); ?>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <h4>Distance</h4>
+              </th>
+              <td>
+                <h4><?php echo ucfirst($distance); ?></h4>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <h4>Fare</h4>
+              </th>
+              <td>
+                <h4><?php echo ucfirst($fare); ?></h4>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <h4>Action</h4>
+              </th>
+              <td>
+                <?php echo "<a href='confirmbooking.php?action=booked' class='btn btn-success'>Confirm Booking</a>&nbsp;&nbsp;<a href='confirmbooking.php?cancel=1' class='btn btn-danger'>Cancel Booking</a>" ; ?>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </section>
@@ -165,4 +203,5 @@ if(isset($_SESSION['id'])){
   </div>
   <script src="action.js"></script>
 </body>
+
 </html>

@@ -28,6 +28,7 @@ if(isset($_GET['sort'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,86 +40,101 @@ if(isset($_GET['sort'])){
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
   <style>
-  .caret {
-    margin:2px;
-    margin-left:5px;
-  }
+    .caret {
+      margin: 2px;
+      margin-left: 5px;
+    }
+
     .caret-dropup {
       transform: rotate(180deg);
     }
   </style>
 </head>
+
 <body>
   <div id="wrap">
     <!-- Header Section -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-          <li class="sidebar-brand" style="background-color:white;">
-            <a class="" href="#"><img src="../logo.png" width="100" alt="CedCab" class="logoimage" style="margin-bottom:-40px"></a>
-          </li>
-          <li>
-              <h4><a style="color:white;" href="admindashboard.php">Home</a></h4>
-          </li>
-          <li>
-            <h4><a href="#" style="color:white;">Rides</a></h4>
-            <a href='requestedrides.php'>Pending Rides</a>
-            <a href='pastrides.php'>Compeleted Rides</a>
-            <a href='cancelledrides.php'>Cancelled Rides</a>
-            <a href='allrides.php'>All Rides</a>
-          </li>
-          <li>
-            <h4><a href="#" style="color:white;">Locations</a></h4>
-            <a href='alllocations.php'>All Locations</a>
-            <a href='addlocation.php'>Add New Locations</a>
-          </li>
-          <li>
-            <h4><a href="#" style="color:white;">Users</a></h4>
-            <a class="active" href='pendingusers.php'>Pending User Requests</a>
-            <a href='approvedusers.php'>Approved User Requests</a>
-            <a href='allusers.php'>All Users</a>
-          </li>
-          <li>
-            <a href='../logout.php'>Logout</a>
-          </li>
-          
+        <li class="sidebar-brand" style="background-color:white;">
+          <a class="" href="#"><img src="../logo.png" width="100" alt="CedCab" class="logoimage"
+              style="margin-bottom:-40px"></a>
+        </li>
+        <li>
+          <h4><a style="color:white;" href="index.php">Home</a></h4>
+        </li>
+        <li>
+          <h4><a href="#" style="color:white;">Rides</a></h4>
+          <a href='requestedrides.php'>Pending Rides</a>
+          <a href='pastrides.php'>Compeleted Rides</a>
+          <a href='cancelledrides.php'>Cancelled Rides</a>
+          <a href='allrides.php'>All Rides</a>
+        </li>
+        <li>
+          <h4><a href="#" style="color:white;">Locations</a></h4>
+          <a href='alllocations.php'>All Locations</a>
+          <a href='addlocation.php'>Add New Locations</a>
+        </li>
+        <li>
+          <h4><a href="#" style="color:white;">Users</a></h4>
+          <a class="active" href='pendingusers.php'>Pending User Requests</a>
+          <a href='approvedusers.php'>Approved User Requests</a>
+          <a href='allusers.php'>All Users</a>
+        </li>
+        <li>
+          <a href='../logout.php'>Logout</a>
+        </li>
+
       </ul>
     </div>
     <!-- Main Section/ Landing Page -->
     <section id="main">
-    <div>
-      <div class="panel-body text-right">
-        <h4> Hey, <?php echo $_SESSION['username']; ?>
-        <a href='../logout.php'>Logout</a></h4>
+      <div>
+        <div class="panel-body text-right">
+          <h4> Hey, <?php echo $_SESSION['username']; ?>
+            <a href='../logout.php'>Logout</a></h4>
+        </div>
       </div>
-    </div>
-    <div class="container text-center">
+      <div class="container text-center">
         <h2>Pending/Blocked Users</h2>
-        <p>Here you can Block/Unblock Users</p> 
-    </div>
+        <p>Here you can Block/Unblock Users</p>
+      </div>
       <div class="container text-center">
         <table class="container table table-striped" style="width:80%;">
-            <thead>
-                <tr>
-                    <th class="text-center">S.no</th>
-                    <th class="text-center">
-                      UserName
-                      <a href="pendingusers.php?sort=ASC&val=user_name"><p class="caret"></p></a>
-                      <a href="pendingusers.php?sort=DESC&val=user_name"><p class="caret caret-dropup"></p></a>
-                    </th>
-                    <th class="text-center">
-                      Name
-                      <a href="pendingusers.php?sort=ASC&val=name"><p class="caret"></p></a>
-                      <a href="pendingusers.php?sort=DESC&val=name"><p class="caret caret-dropup"></p></a>
-                    </th>
-                    <th class="text-center">
-                      Mobile
-                      <a href="pendingusers.php?sort=ASC&val=mobile"><p class="caret"></p></a>
-                      <a href="pendingusers.php?sort=DESC&val=mobile"><p class="caret caret-dropup"></p></a>
-                    </th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
+          <thead>
+            <tr>
+              <th class="text-center">S.no</th>
+              <th class="text-center">
+                UserName
+                <a href="pendingusers.php?sort=ASC&val=user_name">
+                  <p class="caret"></p>
+                </a>
+                <a href="pendingusers.php?sort=DESC&val=user_name">
+                  <p class="caret caret-dropup"></p>
+                </a>
+              </th>
+              <th class="text-center">
+                Name
+                <a href="pendingusers.php?sort=ASC&val=name">
+                  <p class="caret"></p>
+                </a>
+                <a href="pendingusers.php?sort=DESC&val=name">
+                  <p class="caret caret-dropup"></p>
+                </a>
+              </th>
+              <th class="text-center">
+                Mobile
+                <a href="pendingusers.php?sort=ASC&val=mobile">
+                  <p class="caret"></p>
+                </a>
+                <a href="pendingusers.php?sort=DESC&val=mobile">
+                  <p class="caret caret-dropup"></p>
+                </a>
+              </th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
             <?php
                 if(isset($_GET['sort'])) {
                   $sql = $final; 
@@ -130,29 +146,32 @@ if(isset($_GET['sort'])){
                 $i = 1;
                 if($sql == '0'){
                   ?>
-                    <tr><td colspan="5">No Data Avaialble</td></tr>
-                  <?php
+            <tr>
+              <td colspan="5">No Data Avaialble</td>
+            </tr>
+            <?php
                 } else {
                   foreach($sql as $data){
                   $id = $data['user_id'];
                   ?>
-                      <tr>
-                          <td><?php echo $i++; ?></td>
-                          <td><?php echo ucfirst($data['user_name']); ?></td>
-                          <td><?php echo ucfirst($data['name']); ?></td>
-                          <td><?php echo ucfirst($data['mobile']); ?></td>
-                          <td>
-                            <a href="pendingusers.php?update=1&data=<?php echo $id; ?>" <?php if($data['isblock'] == "0" ) { ?> class="btn btn-info btn-xs" <?php ; } else { ?> class="btn btn-danger btn-xs" <?php } ?>>
-                              <?php if($data['isblock'] == "0" ) { echo "Unblock"; } else { echo "Block"; } ?>
-                            </a>
-                          </td>
-                          <!--  -->
-                      </tr>
-                  <?php
+            <tr>
+              <td><?php echo $i++; ?></td>
+              <td><?php echo ucfirst($data['user_name']); ?></td>
+              <td><?php echo ucfirst($data['name']); ?></td>
+              <td><?php echo ucfirst($data['mobile']); ?></td>
+              <td>
+                <a href="pendingusers.php?update=1&data=<?php echo $id; ?>" <?php if($data['isblock'] == "0" ) { ?>
+                  class="btn btn-info btn-xs" <?php ; } else { ?> class="btn btn-danger btn-xs" <?php } ?>>
+                  <?php if($data['isblock'] == "0" ) { echo "Unblock"; } else { echo "Block"; } ?>
+                </a>
+              </td>
+              <!--  -->
+            </tr>
+            <?php
                   }
                 }
             ?>
-            </tbody>
+          </tbody>
         </table>
         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
       </div>
@@ -180,4 +199,5 @@ if(isset($_GET['sort'])){
   </div>
   <script src="../action.js"></script>
 </body>
+
 </html>

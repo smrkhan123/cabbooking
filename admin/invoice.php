@@ -17,6 +17,7 @@ $comp = $obj1->select_invoice($id, $db->conn);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,16 +29,18 @@ $comp = $obj1->select_invoice($id, $db->conn);
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div id="wrap">
-        <!-- Sidebar -->
+    <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand" style="background-color:white;">
-          <a class="" href="#"><img src="../logo.png" width="100" alt="CedCab" class="logoimage" style="margin-bottom:-40px"></a>
+          <a class="" href="#"><img src="../logo.png" width="100" alt="CedCab" class="logoimage"
+              style="margin-bottom:-40px"></a>
         </li>
         <li>
-            <h4><a class="active" style="color:white;" href="admindashboard.php">Home</a></h4>
+          <h4><a class="active" style="color:white;" href="index.php">Home</a></h4>
         </li>
         <li>
           <h4><a href="#" style="color:white;">Rides</a></h4>
@@ -59,7 +62,7 @@ $comp = $obj1->select_invoice($id, $db->conn);
         </li>
         <li>
           <a href='../logout.php'>Logout</a>
-        </li>   
+        </li>
       </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -75,23 +78,39 @@ $comp = $obj1->select_invoice($id, $db->conn);
       </div>
       <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 col-lg-2"></div>
-            <div class="col-md-8 col-lg-8">
-                <div class="row panel panel-default">
-                    <div class="text-center panel-heading"><h1>Invoice</h1></div>
-                    <div class="panel-body">
-                        <table class="table">
-                        <?php foreach($comp as $data) {
+          <div class="col-md-2 col-lg-2"></div>
+          <div class="col-md-8 col-lg-8">
+            <div class="row panel panel-default">
+              <div class="text-center panel-heading">
+                <h1>Invoice</h1>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <?php foreach($comp as $data) {
                             ?>
-                          <tr>
-                            <th><h3>Date:</h3></th><td class="text-center"><h3><?php echo $data['ride_date']; ?></h3></td>
-                          </tr>
-                          <tr>
-                            <th><h3>Ride Id:</h3></th><td class="text-center"><h3><?php echo $data['ride_id']; ?></h3></td>
-                          </tr>
-                          <tr>  
-                            <th><h3>Name:</h3></th><td class="text-center"><h3>
-                              <?php
+                  <tr>
+                    <th>
+                      <h3>Date:</h3>
+                    </th>
+                    <td class="text-center">
+                      <h3><?php echo $data['ride_date']; ?></h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <h3>Ride Id:</h3>
+                    </th>
+                    <td class="text-center">
+                      <h3><?php echo $data['ride_id']; ?></h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <h3>Name:</h3>
+                    </th>
+                    <td class="text-center">
+                      <h3>
+                        <?php
                                   $selectUser = new Users();
                                   $users = $selectUser->select_user_id($data['customer_user_id'], $db->conn);
                                   if($users == '0') {
@@ -103,44 +122,77 @@ $comp = $obj1->select_invoice($id, $db->conn);
                                       echo ucfirst($username);
                                   }
                                 ?>
-                                </h3></td>
-                          </tr>
-                          <tr>
-                            <th><h3>From:</h3></th><td class="text-center"><h3><?php echo ucfirst($data['from']); ?></h3></td>
-                          </tr>
-                          <tr>
-                            <th><h3>To:</h3></th><td class="text-center"><h3><?php echo ucfirst($data['to']); ?></h3></td>
-                          </tr>
-                          <tr>
-                            <th><h3>Total Distance:</h3></th><td class="text-center"><h3><?php echo $data['total_distance']; ?></h3></td>
-                          </tr>
-                          <tr>
-                            <th><h3>Cab Type:</h3></th><td class="text-center"><h3><?php echo ucfirst($data['cabtype']); ?></h3></td>
-                          </tr>
-                          <tr>
-                            <th><h3>Luggage:</h3></th><td class="text-center"><h3><?php if($data['luggage'] == '') { echo '0KG'; } else { echo $data['luggage']."KG";} ?></h3></td>
-                          </tr>
-                          <tr>
-                              <th class="text-center"><h2>Total fare: </h2></th><td class="text-center"><h1><?php echo "Rs.".$data['total_fare']; ?></h1></td>
-                          </tr>
-                          <?php
+                      </h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <h3>From:</h3>
+                    </th>
+                    <td class="text-center">
+                      <h3><?php echo ucfirst($data['from']); ?></h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <h3>To:</h3>
+                    </th>
+                    <td class="text-center">
+                      <h3><?php echo ucfirst($data['to']); ?></h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <h3>Total Distance:</h3>
+                    </th>
+                    <td class="text-center">
+                      <h3><?php echo $data['total_distance']; ?></h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <h3>Cab Type:</h3>
+                    </th>
+                    <td class="text-center">
+                      <h3><?php echo ucfirst($data['cabtype']); ?></h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <h3>Luggage:</h3>
+                    </th>
+                    <td class="text-center">
+                      <h3><?php if($data['luggage'] == '') { echo '0KG'; } else { echo $data['luggage']."KG";} ?></h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-center">
+                      <h2>Total fare: </h2>
+                    </th>
+                    <td class="text-center">
+                      <h1><?php echo "Rs.".$data['total_fare']; ?></h1>
+                    </td>
+                  </tr>
+                  <?php
                         } ?>
-                        </table>
-                        <p class="text-center" id="printButton"><button class="btn btn-primary" onclick="printScr()">Print</button></p>
-                </div>
+                </table>
+                <p class="text-center" id="printButton"><button class="btn btn-primary"
+                    onclick="printScr()">Print</button></p>
+              </div>
             </div>
             <div class="col-md-2 col-lg-2"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script src="../action.js"></script>
-  <script>
-    function printScr() {
-      $('#userData').css('display', 'none');
-      $('#printButton').css('display', 'none');
-      window.print();
-    }
-  </script>
+    <script src="../action.js"></script>
+    <script>
+      function printScr() {
+        $('#userData').css('display', 'none');
+        $('#printButton').css('display', 'none');
+        window.print();
+      }
+    </script>
 </body>
+
 </html>

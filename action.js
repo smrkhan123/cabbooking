@@ -1,11 +1,11 @@
-function allRide(rideType){
+function allRide(rideType) {
     console.log(rideType);
     $.ajax({
-        url : "allrides.php",
-        method : "POST",
-        data : {type : rideType},
-        dataType : "json",
-    }).done(function(result){
+        url: "allrides.php",
+        method: "POST",
+        data: { type: rideType },
+        dataType: "json",
+    }).done(function (result) {
         console.log(result);
     });
 }
@@ -46,24 +46,24 @@ function farecalc() {
             data: { pickup: pckup, drop: drp, cab: cb, luggage: lug },
             dataType: "json"
         }).done(function (msg) {
-            $("#calculatedFare").html("<strong>Calculated Fare: Rs. "+ msg[0] +"</strong>");
+            $("#calculatedFare").html("<strong>Calculated Fare: Rs. " + msg[0] + "</strong>");
             $("#buttonfare").val(msg[0]);
             $("#distanceinput").val(msg[1]);
             $(".subButton").css("display", "block");
         });
     }
 }
-$("#luggage").keyup(function(){
+$("#luggage").keyup(function () {
     $("#calculatedFare").html("Calculate Fare");
     $(".subButton").css("display", "none");
-    var w =$("#luggage").val();
-    if(isNaN(w) == true) {
+    var w = $("#luggage").val();
+    if (isNaN(w) == true) {
         alert("Interger Value Needed");
         $("#luggage").val("");
     }
 });
 
-$("#menu-toggle").click(function(e) {
+$("#menu-toggle").click(function (e) {
     e.preventDefault();
-  $("#wrap").toggleClass("toggled");
-  });
+    $("#wrap").toggleClass("toggled");
+});

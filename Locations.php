@@ -29,7 +29,8 @@ class Locations {
         if($rows>0){
             return $run;
         }
-    }  
+    }
+
     function insert($name, $distance, $conn) {
         $flag = 0;
         $loc = "SELECT * FROM location";
@@ -49,6 +50,7 @@ class Locations {
             echo "<script>alert('Data already exists');</script>";
         }
     }
+
     function select_loc_id($id, $conn){
         $sql = "SELECT * FROM location WHERE `id` = '".$id."'";
         $run = mysqli_query($conn, $sql);
@@ -58,6 +60,7 @@ class Locations {
             return $data;
         }
     }
+
     function update_loc($id, $name, $distance, $isavail, $conn) {
         $sql = "UPDATE `location` SET `name` = '".$name."', `distance` = '".$distance."', `is_available` = '".$isavail."' WHERE `id` = '".$id."'";
         $run = mysqli_query($conn, $sql);
@@ -68,6 +71,7 @@ class Locations {
            return false;
        }
     }
+
     function enable_loc($id, $conn) {
         $isavai = "";
         $qry = "SELECT * FROM location WHERE `id` = $id";
@@ -94,6 +98,7 @@ class Locations {
             echo "Some error occured! ".mysqli_error($conn);
         }
     }
+    
     function sort_loc($sort, $order, $conn) {
         if($sort == "distance"){
             $sort = "cast(`$sort` AS unsigned)";

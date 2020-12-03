@@ -19,6 +19,7 @@ class Rides {
         }
     
     }
+
     function select_ride($data, $conn) {
         $sql = "SELECT * FROM ride WHERE status = '".$data."' AND `is_delete` = 0";
         $run = mysqli_query($conn, $sql);
@@ -57,7 +58,7 @@ class Rides {
         if(!$run){
             echo "Some error occured! ".mysqli_error($conn);
         } else {
-            echo "<script>alert('Your ride is booked! We make sure to get in touch with you shortly.'); window.location.href = 'pendingrides.php';</script>";
+            echo "<script>alert('You booked your ride! We make sure to get in touch with you shortly.'); window.location.href = 'pendingrides.php';</script>";
         }
     }
 
@@ -150,6 +151,16 @@ class Rides {
         }
     }
 
+    function filter_cabtype($id, $status, $cabtype, $conn) {
+        $sql = "SELECT * FROM `ride` WHERE `cabtype` = '$cabtype' AND `status` = '$status'";
+        $run = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($run)>0){
+            return $run;
+        } else {
+            return 0;
+        }
+    }
+
     function select_invoice($id, $conn) {
         $sql = "SELECT * FROM ride WHERE `ride_id` = '".$id."'";
         $run = mysqli_query($conn, $sql);
@@ -171,6 +182,8 @@ class Rides {
         $run = mysqli_query($conn, $sql);
         if(mysqli_num_rows($run) > 0){
             return $run;
+        } else {
+            return '0';
         }
     }
 
@@ -179,6 +192,8 @@ class Rides {
         $run = mysqli_query($conn, $sql);
         if(mysqli_num_rows($run) > 0){
             return $run;
+        } else {
+            return '0';
         }
     }
 }

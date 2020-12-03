@@ -46,9 +46,12 @@ class Users {
                 $_SESSION['usertype'] = $usertype;
                 $_SESSION['username'] = $uname;
 				if($usertype == "1"){
-					header("location:admin/admindashboard.php");
+					header("location:admin/index.php");
 				} else {
-                    header("location:userdashboard.php");
+                    if((time()-$_SESSION['timestart'])>180) {
+                        unset($_SESSION['booking']);
+                        header("location:userdashboard.php");
+                      }
                 } 
             }
         } else {
@@ -149,6 +152,7 @@ class Users {
             return $runqry;
         }
     }
+
     function sort_pending_users($sort, $order, $status, $conn) {
         if($sort == "mobile"){
             $sort = "cast(`$sort` AS unsigned)";
